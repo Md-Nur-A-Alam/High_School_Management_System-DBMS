@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>HSMS</title>
+</head>
+
+<body>
+    <header class="header">
+        <nav>
+            <a href="index.html"><img src="Images/logo.png" alt="HSMS"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="ri-close-circle-fill" id="close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">COURSE</a></li>
+                    <li><a href="#">BLOG</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </div>
+            <i class="ri-menu-line" id="menu" onclick="showMenu()"></i>
+        </nav>
+        <div class="text-box">
+            <h1>High School Management System</h1>
+            <p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita magnam commodi
+                omnis, labore esse
+                optio. Dolor hic doloribus et voluptatibus illum officiis excepturi. Asperiores laborum nam harum
+                blanditiis laudantium alias vitae saepe vero, aliquam sit ipsa, fugiat magnam temporibus, nesciunt dolor
+                ad corrupti eveniet facilis et obcaecati nobis. Error, quisquam!</p>
+            <a href="" class="box_btn">Visit Us To Know More</a>
+        </div>
+    </header>
+    <main class="main">
+        <!-- ======== Course ======== -->
+        <section class="course">
+            <h1 class="section_title">Course We Offer</h1>
+            <p class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, officiis.</p>
+            <div class="row">
+                <div class="container_column">
+                    <h3 class="container_title">Intermediate</h3>
+                    <div class="container_description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid
+                        quasi iure nisi saepe magni incidunt quod alias velit quisquam error officiis dolorum animi
+                        suscipit, corrupti magnam voluptates? Quia, nulla vero!</div>
+                </div>
+                <div class="container_column">
+                    <h3 class="container_title">Degree</h3>
+                    <div class="container_description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid
+                        quasi iure nisi saepe magni incidunt quod alias velit quisquam error officiis dolorum animi
+                        suscipit, corrupti magnam voluptates? Quia, nulla vero!</div>
+                </div>
+                <div class="container_column">
+                    <h3 class="container_title">Post Graduation</h3>
+                    <div class="container_description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid
+                        quasi iure nisi saepe magni incidunt quod alias velit quisquam error officiis dolorum animi
+                        suscipit, corrupti magnam voluptates? Quia, nulla vero!</div>
+                </div>
+            </div>
+        </section>
+        <!-- ========= Campus ========== -->
+        <section class="campus">
+            <h1 class="section_title">Course We Offer</h1>
+            <p class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, officiis.</p>
+
+            <div class="row">
+                <div class="container_column"><img src="Images/london.png" alt="">
+                    <h3 class="container_title">LONDON</h3>
+                </div>
+                <div class="container_column"><img src="Images/newyork.png" alt="">
+                    <h3 class="container_title">NEWYORK</h3>
+                </div>
+                <div class="container_column"><img src="Images/washington.png" alt="">
+                    <h3 class="container_title">WASHINGTON</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========= facilities ========== -->
+        <section class="facilities">
+            <h1 class="section_title">Our facilities</h1>
+            <p class="description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptas.</p>
+            <div class="row">
+                <div class="container_column">
+                    <img src="Images/library.png" alt="">
+                    <div class="container_title">World Class Library</div>
+                    <div class="container_description">Lorem ipsum dolor, sit amet consectetur adipisicing.</div>
+                </div>
+                <div class="container_column">
+                    <img src="Images/basketball.png" alt="">
+                    <div class="container_title">Largest Play Ground</div>
+                    <div class="container_description">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+                </div>
+                <div class="container_column">
+                    <img src="Images/cafeteria.png" alt="">
+                    <div class="container_title">Tasty and Healthy Food</div>
+                    <div class="container_description">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer class="footer">
+
+    </footer>
+    <!-- =========== javascript for toogle menu ======= -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+        var close = document.getElementById("close");
+        var menu = document.getElementById("menu");
+
+        function showMenu() {
+            navLinks.style.right = "0"
+            menu.style.color = "transparent"
+        }
+        function hideMenu() {
+            navLinks.style.right = "-170px"
+            menu.style.color = "#fff"
+        }
+    </script>
+</body>
+
+</html>
