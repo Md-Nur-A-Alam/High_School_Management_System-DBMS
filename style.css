@@ -231,9 +231,39 @@ nav .ri-close-circle-fill,
     color: #777;
 }
 
+ /* --------- testimonials ---------- */
+ .testimonials{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
 
+.testimonials img{
+    height: 120px;
+    margin-left: 5px;
+    margin-right: 30px;
+    border-radius: 50%;
+}
 
+.testimonials .container_column{
+    margin-right: 10px;
+    flex-basis: 44%;
+    padding: 20px 12px;
+    text-align: left;
+    background: #e3eeff;
+    padding: 25px;
+    cursor: pointer;
+    display: flex;
+}
 
+.testimonials .container_column p{
+    padding: 0;
+}
+.testimonials .container_column h3{
+    margin-top: 15px;
+    text-align: left;
+}
 
 
 
