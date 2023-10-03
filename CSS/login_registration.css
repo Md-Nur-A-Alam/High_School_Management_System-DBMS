@@ -1,0 +1,88 @@
+/* ========= common used =========== */
+.box_btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.box_btn:hover {
+    border: 1px solid #ffffff;
+    background: #2692ff;
+    color: rgb(255, 255, 255);
+    transition: 1s;
+}
+
+/* =========== form ============= */
+.text-box h2 {
+    font-size: 32px;
+}
+.form_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    padding-bottom: 60px;
+}
+
+.form_container form{
+    padding: 20px;
+    border-radius: 5px;
+    background: rgba(175, 175, 175, 0.39);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+    text-align: left;
+    width: 700px;
+}
+
+.form_container form h3{
+    font-size: 30px;
+    text-decoration: uppercase;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-align: center;
+}
+
+label{
+    font-size: 20px;
+    text-align: left;
+    color: #ffffff;
+}
+
+form input, select{
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #ffffffb2;
+    transition: border-color 2s;
+}
+
+.form-btn{
+    background: #87f1ff;
+    color: #030303;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.form-btn:hover{
+    background: #2692ff;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.go_login{
+    font-size: 20px;
+    display:flex;
+    padding: 0 5%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
