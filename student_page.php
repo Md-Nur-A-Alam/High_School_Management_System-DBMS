@@ -1,3 +1,8 @@
+<?php
+@include 'database.php';
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,13 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <title>HSMS</title>
+    <title>Student</title>
 </head>
 
 <body>
     <header class="header">
         <nav>
-            <a href="index.html"><img src="Images/logo.png" alt="HSMS"></a>
+            <a href="index.php"><img src="Images/logo.png" alt="HSMS"></a>
             <div class="nav-links" id="navLinks">
                 <i class="ri-close-circle-fill" id="close" onclick="hideMenu()"></i>
                 <ul>
@@ -26,13 +31,13 @@
                     <li><a href="#">NOTICE</a></li>
                     <li><a href="#">ADMISSION</a></li>
                     <li><a href="#">CONTACT</a></li>
-                    <li><a href="login.html">LOG IN</a></li>
+                    <li><a href="index.php">LOG OUT</a></li>
                 </ul>
             </div>
             <i class="ri-menu-line" id="menu" onclick="showMenu()"></i>
         </nav>
         <div class="text-box">
-            <h1>High School Management System</h1>
+            <h1>Hello <span><?php echo $_SESSION['student_name'] ?></span></h1>
             <p class="head_foot_description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita magnam commodi
                 omnis, labore esse
                 optio. Dolor hic doloribus et voluptatibus illum officiis excepturi. Asperiores laborum nam harum

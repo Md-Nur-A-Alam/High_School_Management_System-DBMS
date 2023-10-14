@@ -1,5 +1,42 @@
+<?php
+session_start();
+@include 'database.php';
+$error = "";
+
+if (isset($_POST['submit'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $pass = md5($_POST['password']);
+
+    $select = "SELECT * FROM users WHERE email = '$email' AND password = '$pass'";
+
+    $result = mysqli_query($conn, $select);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        if ($row['approval'] == '0') { // Fix the condition here
+            $error = "Not approved yet";
+        } elseif ($row['user_type'] == 'admin') {
+            $_SESSION['admin_name'] = $row['name'];
+            header('Location: admin_page.php');
+        } elseif ($row['user_type'] == 'student') {
+            $_SESSION['student_name'] = $row['name'];
+            header('Location: student_page.php');
+        } elseif ($row['user_type'] == 'teacher') {
+            $_SESSION['teacher_name'] = $row['name'];
+            header('Location: teacher_page.php');
+        }
+    } else {
+        $error = "Incorrect email or password!";
+    }
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,19 +46,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <title>HSMS - Registration</title>
+    <title>HSMS - Login</title>
 </head>
+
 <body>
     <header class="header">
         <nav>
-            <a href="index.html"><img src="Images/logo.png" alt="HSMS"></a>
+            <a href="index.php"><img src="Images/logo.png" alt="HSMS"></a>
             <div class="nav-links" id="navLinks">
                 <i class="ri-close-circle-fill" id="close" onclick="hideMenu()"></i>
                 <ul>
-                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="index.php">HOME</a></li>
                     <li><a href="#">ADMISSION</a></li>
                     <li><a href="#">CONTACT</a></li>
-                    <li class="header_box_btn"><a href="login.html">SIGN IN</a></li>
+                    <li class="header_box_btn"><a href="registration.php">SIGN UP</a></li>
                 </ul>
             </div>
             <i class="ri-menu-line" id="menu" onclick="showMenu()"></i>
@@ -31,30 +69,17 @@
         <div class="text-box">
             <h2>High School Management System</h2>
             <div class="form_container">
-                <form action="registration_process.php" method="post">
-                    <h3>Register Now</h3>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your name" autocomplete="name">
-                    
-                    <label for="email">Email Account:</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email" autocomplete="email">
-                    
+                <form action="" method="post">
+                    <h3>Login Now</h3>
+                    <hr><span><?php echo '<p style="border-radius: 5px; background-color:rgba(255, 0, 0, 0.699); margin: auto; text-align: center; font-size: 20px; text-decoration: uppercase;">'.$error.'</p>' ?></span><hr>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter the password" autocomplete="new-password">
-                    
-                    <label for="confirm_password">Confirm password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm your password" autocomplete="new-password">
-                    
-                    <label for="user_type">Select user type:</label>
-                    <select id="user_type" name="user_type">
-                        <option value="Student">Student</option>
-                        <option value="Teacher">Teacher</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                    
-                    <input type="submit" name="submit" value="Register Now" class="form-btn">
-                    
-                    <p class="go_login">Already have an account? <a href="login.html"><b class="header_box_btn">Sign In</b></a></p>
+                    <input type="password" id="password" name="password" required placeholder="Enter the password">
+                    <input type="submit" name="submit" value="Log In" class="form-btn">
+
+                    <p class="go_login">Don't have an account? <a href="registration.php" class="header_box_btn">Sign Up</a></p>
                 </form>
             </div>
         </div>
@@ -70,7 +95,7 @@
             <i class="ri-youtube-fill" id="icon_footer"></i>
         </div>
     </footer>
-    <!-- =========== JavaScript for toggle menu ======= -->
+    <!-- JavaScript for toggle menu -->
     <script>
         var navLinks = document.getElementById("navLinks");
         var close = document.getElementById("close");
@@ -80,10 +105,12 @@
             navLinks.style.right = "0";
             menu.style.color = "transparent";
         }
+
         function hideMenu() {
             navLinks.style.right = "-170px";
             menu.style.color = "#fff";
         }
     </script>
 </body>
+
 </html>
