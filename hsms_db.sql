@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2023 at 09:17 PM
+-- Generation Time: Oct 16, 2023 at 12:24 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -182,6 +182,32 @@ INSERT INTO `class_routine` (`id`, `day`, `class_id`, `section_id`, `1st_subject
 (103, 'Fri', 10, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (104, 'Fri', 10, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (105, 'Fri', 10, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notices`
+--
+
+CREATE TABLE `notices` (
+  `noticeID` int(11) NOT NULL,
+  `noticeDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sender` enum('student','teacher','accounts','admin') DEFAULT NULL,
+  `receiver` enum('student','teacher','accounts','admin') DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notices`
+--
+
+INSERT INTO `notices` (`noticeID`, `noticeDate`, `sender`, `receiver`, `user_id`, `subject`, `message`) VALUES
+(1, '2023-10-15 21:46:41', 'admin', 'student', NULL, 'Idea Contest', 'Dear all students please submit your idea with in 1 week. i.e. 22-10-2023'),
+(2, '2023-10-15 21:47:44', 'admin', 'student', NULL, 'Programming contest', 'Tomorrow will held a programming contest'),
+(3, '2023-10-15 22:00:17', 'admin', 'student', NULL, 'Proper Uniform', 'All students have to obey the rules of uniform code'),
+(5, '2023-10-15 22:08:31', 'admin', 'teacher', NULL, 'Meeting', 'All teachers have to come to the meeting room al 12pm on 2023-10-17');
 
 -- --------------------------------------------------------
 
@@ -403,6 +429,13 @@ ALTER TABLE `class_routine`
   ADD KEY `6th_teacher_id` (`6th_teacher_id`);
 
 --
+-- Indexes for table `notices`
+--
+ALTER TABLE `notices`
+  ADD PRIMARY KEY (`noticeID`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `sections`
 --
 ALTER TABLE `sections`
@@ -455,6 +488,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `class_routine`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
+--
+-- AUTO_INCREMENT for table `notices`
+--
+ALTER TABLE `notices`
+  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -514,6 +553,12 @@ ALTER TABLE `class_routine`
   ADD CONSTRAINT `class_routine_ibfk_7` FOREIGN KEY (`3rd_subject_id`) REFERENCES `subjects` (`subject_id`),
   ADD CONSTRAINT `class_routine_ibfk_8` FOREIGN KEY (`3rd_teacher_id`) REFERENCES `teachers` (`teacher_id`),
   ADD CONSTRAINT `class_routine_ibfk_9` FOREIGN KEY (`4th_subject_id`) REFERENCES `subjects` (`subject_id`);
+
+--
+-- Constraints for table `notices`
+--
+ALTER TABLE `notices`
+  ADD CONSTRAINT `notices_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `students`
