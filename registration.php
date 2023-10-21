@@ -1,5 +1,5 @@
 <?php
-@include 'database.php';
+@include 'template/database.php';
 
 $error = null;
 

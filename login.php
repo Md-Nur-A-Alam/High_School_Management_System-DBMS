@@ -1,6 +1,6 @@
 <?php
 session_start();
-@include 'database.php';
+@include 'template/database.php';
 $error = "";
 
 if (isset($_POST['submit'])) {
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
             $error = "Not approved yet";
         } elseif ($row['user_type'] == 'admin') {
             $_SESSION['admin_name'] = $row['name'];
-            header('Location: admin_page.php');
+            header('Location: Part-Admin/admin_page.php');
         } elseif ($row['user_type'] == 'student') {
             $_SESSION['student_name'] = $row['name'];
             header('Location: student_page.php');
