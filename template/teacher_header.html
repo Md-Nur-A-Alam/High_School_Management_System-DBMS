@@ -1,0 +1,32 @@
+<header class="header">
+    <nav>
+        <a href="teacher_page.php"><img src="../Images/logo.png" alt="HSMS"></a>
+        <div class="nav-links" id="navLinks">
+            <i class="ri-close-circle-fill" id="close" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="teacher_page.php">Dashboard</a></li>
+                <li><a href="#">Students</a></li>
+                <li><a href="#">Teachers</a></li>
+                <li><a href="#">Schedule</a></li>
+                <li><a href="#">Notice</a></li>
+                <li><a href="../login.php">LOG OUT</a></li>
+            </ul>
+        </div>
+        <i class="ri-menu-line" id="menu" onclick="showMenu()"></i>
+    </nav>
+</header>
+<!-- =========== javascript for toogle menu ======= -->
+<script>
+    var navLinks = document.getElementById("navLinks");
+    var close = document.getElementById("close");
+    var menu = document.getElementById("menu");
+
+    function showMenu() {
+        navLinks.style.right = "0"
+        menu.style.color = "transparent"
+    }
+    function hideMenu() {
+        navLinks.style.right = "-170px"
+        menu.style.color = "#fff"
+    }
+</script>

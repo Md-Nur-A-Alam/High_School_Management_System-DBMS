@@ -88,4 +88,6 @@ $admin_sl = $row['sl'];
 
 </html>
 
-PHP 
+<?php
+include ('../template/admin_footer.html');
+?>

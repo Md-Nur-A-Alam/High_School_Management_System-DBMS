@@ -17,6 +17,8 @@ $qualification = null;
 $salary = null;
 $designation_id = null;
 $subject_id = null;
+$profilePicName = null;
+$pp = '';  // Initialize the profile picture HTML variable
 
 if (isset($_GET['detailUID'])) {
     $uid = $_GET['detailUID'];
@@ -33,7 +35,8 @@ if (isset($_GET['detailUID'])) {
     $email = $row['email'];
     $sub = $row['subject_name'];
     $designation = $row['designation_name'];
-    $dob = $row['date_of_birth'];
+    $rdob = $row['date_of_birth'];
+    $dob = date('F j, Y', strtotime($rdob));
     $address = $row['address'];
     $phoNo = $row['phone_number'];
     $gender = $row['gender'];
@@ -41,6 +44,10 @@ if (isset($_GET['detailUID'])) {
     $salary = $row['salary'];
     $designation_id = $row['designation_id'];
     $subject_id = $row['subject_id'];
+    $profilePicName = $row['profile_pic'];
+    if ($profilePicName == null) {
+        $profilePicName = 'default.jpg';
+    }
 }
 // echo "{$uid} <br> {$tid}";
 
@@ -86,6 +93,10 @@ if (isset($_POST['back'])) {
 
     header('location: admin_teacher_details.php?detailUID=' . $uid . '');
 }
+
+$pp = '<div class="col-3">
+        <div><img src="../uploads/teacher_profile_pic/' . $profilePicName . '" class="profile-image" alt="'.$name.'"></div>
+        </div>';
 ?>
 
 
@@ -103,91 +114,104 @@ if (isset($_POST['back'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Admin Teacher Details</title>
+
+    <style>
+        .profile-image {
+            width: 400%;
+            /* This sets the image width to 4 times its original size */
+            border-radius: 10px;
+            border-color: black;
+            box-shadow: 0 0 3px 0.5px rgb(40, 40, 40);
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- ============ show data from here ============== -->
-    <?php
-    echo '
     <div class="container my-5">
-    <h2>Teacher information show:</h2>
-            <hr>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Name</div>
-                    <div class="col-9">: ' . $name . '</div>
+        <h1>Teacher Details: </h1>
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <?php echo $pp; ?>
+            </div>
+            <div class="col-9">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Name</div>
+                        <div class="col-9">: <?php echo $name; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Designation</div>
+                        <div class="col-9">: <?php echo $designation; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Spatialize subject</div>
+                        <div class="col-9">: <?php echo $sub; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Teacher ID</div>
+                        <div class="col-9">: <?php echo $tid; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">User ID</div>
+                        <div class="col-9">: <?php echo $uid; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Gender</div>
+                        <div class="col-9">: <?php echo $gender; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Phone No.</div>
+                        <div class="col-9">: <?php echo $phoNo; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Email</div>
+                        <div class="col-9">: <?php echo $email; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Date of Birth</div>
+                        <div class="col-9">: <?php echo $dob; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Address</div>
+                        <div class="col-9">: <?php echo $address; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Qualification</div>
+                        <div class="col-9">: <?php echo $qualification; ?></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3 fw-bold">Salary</div>
+                        <div class="col-9 text-success fw-normal">: <?php echo $salary; ?></div>
+                    </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Designation</div>
-                    <div class="col-9">: ' . $designation . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Spatialize subject</div>
-                    <div class="col-9">: ' . $sub . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Teacher ID</div>
-                    <div class="col-9">: ' . $tid . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">User ID</div>
-                    <div class="col-9">: ' . $uid . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Gender</div>
-                    <div class="col-9">: ' . $gender . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Phone No.</div>
-                    <div class="col-9">: ' . $phoNo . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Email</div>
-                    <div class="col-9">: ' . $email . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Date of Birth</div>
-                    <div class="col-9">: ' . $dob . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Address</div>
-                    <div class="col-9">: ' . $address . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Qualification</div>
-                    <div class="col-9">: ' . $qualification . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Salary</div>
-                    <div class="col-9 text-success fw-normal">: ' . $salary . '</div>
-                </div>
-            </div>
-    </div>';
-    ?>
+        </div>
+    </div>
     <hr>
     <!-- =========== modify button here =========== -->
     <div class="container my-3 d-flex justify-content-between">

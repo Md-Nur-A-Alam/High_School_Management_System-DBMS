@@ -16,14 +16,17 @@ if (isset($_POST['submit'])) {
         if ($row['approval'] == '0') { // Fix the condition here
             $error = "Not approved yet";
         } elseif ($row['user_type'] == 'admin') {
+            $_SESSION['admin_id']=$row['id'];
             $_SESSION['admin_name'] = $row['name'];
             header('Location: Part-Admin/admin_page.php');
         } elseif ($row['user_type'] == 'student') {
+            $_SESSION['student_id']=$row['id'];
             $_SESSION['student_name'] = $row['name'];
             header('Location: student_page.php');
         } elseif ($row['user_type'] == 'teacher') {
+            $_SESSION['teacher_id']=$row['id'];
             $_SESSION['teacher_name'] = $row['name'];
-            header('Location: teacher_page.php');
+            header('Location: Part-Teacher/teacher_page.php');
         }
     } else {
         $error = "Incorrect email or password!";

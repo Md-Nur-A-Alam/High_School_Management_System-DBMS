@@ -15,6 +15,8 @@ $dob = null;
 $address = null;
 $phone = null;
 $gender = null;
+$profilePicName = null;
+$pp = '';  // Initialize the profile picture HTML variable
 
 if (isset($_GET['detailUID'])) {
     $uid = $_GET['detailUID']; //
@@ -35,27 +37,20 @@ if (isset($_GET['detailUID'])) {
     $blood = $row['blood_group'];
     $guardian = $row['guardian_name'];
     $gPhone = $row['guardian_phone'];
-    $dob = $row['date_of_birth']; //
+    $rdob = $row['date_of_birth'];
+    $dob = date('F j, Y', strtotime($rdob));
     $address = $row['address']; //
     $phone = $row['phone_number']; //
     $gender = $row['gender']; //
+    $profilePicName = $row['profile_pic'];
+    if ($profilePicName == null) {
+        $profilePicName = 'default.jpg';
+    }
 }
 
-// echo "{$uid} = uid;<br>
-// {$sid} = sid;<br>
-// {$name} = name;<br>
-// {$email} = email;<br>
-// {$class} = class;<br>
-// {$section} = section;<br>
-// {$blood} = blood;<br>
-// {$guardian} = guardian;<br>
-// {$gPhone} = gPhone;<br>
-// {$dob} = dob;<br>
-// {$address} = address;<br>
-// {$phone} = phone;<br>
-// {$gender} = gender;";
-
-
+$pp = '<div class="col-3">
+        <div><img src="../uploads/student_profile_pic/' . $profilePicName . '" class="profile-image" alt="' . $name . '"></div>
+        </div>';
 
 
 if (isset($_POST['back'])) {
@@ -105,7 +100,6 @@ if (isset($_POST['back'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/adminHeaderFooter.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
@@ -113,108 +107,122 @@ if (isset($_POST['back'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Admin Student Details</title>
+
+    <style>
+        .profile-image {
+            width: 400%;
+            border-radius: 10px;
+            border-color: black;
+            box-shadow: 0 0 3px 0.5px rgb(40, 40, 40);
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- ============ show data from here ============== -->
-    <?php
-    echo '
     <div class="container my-5">
-    <h2>Student information show:</h2>
-            <hr>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Name</div>
-                    <div class="col-9">: ' . $name . '</div>
-                </div>
+        <h2>Student information show:</h2>
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <?php echo $pp; ?>
             </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Class</div>
-                    <div class="col-9">: ' . $class . '</div>
+            <div class="col-9">
+                <?php
+                echo '
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Name</div>
+                            <div class="col-9">: ' . $name . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Class</div>
+                            <div class="col-9">: ' . $class . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Section</div>
+                            <div class="col-9">: ' . $section . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Student ID</div>
+                            <div class="col-9">: ' . $sid . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">User ID</div>
+                            <div class="col-9">: ' . $uid . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Gender</div>
+                            <div class="col-9">: ' . $gender . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Phone No.</div>
+                            <div class="col-9">: ' . $phone . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Email</div>
+                            <div class="col-9">: ' . $email . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Date of Birth</div>
+                            <div class="col-9">: ' . $dob . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Guardian</div>
+                            <div class="col-9">: ' . $guardian . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Guardian Phone</div>
+                            <div class="col-9 text-success fw-normal">: ' . $gPhone . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Address</div>
+                            <div class="col-9">: ' . $address . '</div>
+                        </div>
+                    </div>';?>
                 </div>
-            </div>
-            <div class="mb-3">
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Section</div>
-                    <div class="col-9">: ' . $section . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Student ID</div>
-                    <div class="col-9">: ' . $sid . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">User ID</div>
-                    <div class="col-9">: ' . $uid . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Gender</div>
-                    <div class="col-9">: ' . $gender . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Phone No.</div>
-                    <div class="col-9">: ' . $phone . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Email</div>
-                    <div class="col-9">: ' . $email . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Date of Birth</div>
-                    <div class="col-9">: ' . $dob . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Guardian</div>
-                    <div class="col-9">: ' . $guardian . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Guardian Phone</div>
-                    <div class="col-9 text-success fw-normal">: ' . $gPhone . '</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 fw-bold">Address</div>
-                    <div class="col-9">: ' . $address . '</div>
-                </div>
-            </div>
-    </div>';
-    ?>
-    <hr>
-    <!-- =========== modify button here =========== -->
-    <div class="container my-3 d-flex justify-content-between">
-        <form method="post">
-            <button class="btn btn-dark" name="back">Back</button>
-        </form>
-        <form method="post">
-            <button class="btn btn-danger" name="modify">Update data</button>
-        </form>
+                
+                <hr>
+                <!-- =========== modify button here =========== -->
+                <div class="container my-3 d-flex justify-content-between">
+                    <form method="post">
+                        <button class="btn btn-dark" name="back">Back</button>
+                    </form>
+                    <form method="post">
+                        <button class="btn btn-danger" name="modify">Update data</button>
+                    </form>
 
-    </div>
-    <!-- ======== Update form here ========= -->
-    <div class="container">
+                </div>
+                <!-- ======== Update form here ========= -->
+                <div class="container">
 
-        <?php
-        if (isset($_POST['modify'])) {
-            echo '<div class="container my-5 ">
+                    <?php
+                    if (isset($_POST['modify'])) {
+                        echo '<div class="container my-5 ">
             <form method="post">
                 <h2>Student information update:</h2>
                 <hr>
@@ -256,10 +264,10 @@ if (isset($_POST['back'])) {
                 <button type="submit" class="btn btn-success" name="update">Save</button>
             </form>
         </div>';
-        }
-        ?>
-    </div>
-    <hr>
+                    }
+                    ?>
+                </div>
+                <hr>
 
 </body>
 
