@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2023 at 12:24 AM
+-- Generation Time: Oct 21, 2023 at 10:24 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -80,19 +80,19 @@ INSERT INTO `class_routine` (`id`, `day`, `class_id`, `section_id`, `1st_subject
 (1, 'Sat', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2, 'Sat', 6, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 'Sat', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Sun', 6, 1, 1, 8, 3, 8, 7, 7, 8, 9, 7, 3, 6, 8),
+(4, 'Sun', 6, 1, 1, NULL, 3, NULL, 7, NULL, 8, 9, 7, NULL, 6, NULL),
 (5, 'Sun', 6, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 'Sun', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 'Mon', 6, 1, 4, 10, 5, 9, 5, 3, 5, 8, 8, 9, 8, 7),
+(7, 'Mon', 6, 1, 4, 10, 5, 9, 5, NULL, 5, NULL, 8, 9, 8, NULL),
 (8, 'Mon', 6, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9, 'Mon', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 'Tue', 6, 1, 1, 8, 1, 10, 1, 9, 1, 3, 1, 3, 1, 9),
+(10, 'Tue', 6, 1, 1, NULL, 1, 10, 1, 9, 1, NULL, 1, NULL, 1, 9),
 (11, 'Tue', 6, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (12, 'Tue', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 'Wed', 6, 1, 1, 7, 1, 8, 1, 9, 1, 7, 1, 10, 1, 9),
+(13, 'Wed', 6, 1, 1, NULL, 1, NULL, 1, 9, 1, NULL, 1, 10, 1, 9),
 (14, 'Wed', 6, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (15, 'Wed', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 'Thu', 6, 1, 1, 9, 1, 10, 1, 7, 1, 8, 1, 9, 1, 3),
+(16, 'Thu', 6, 1, 1, 9, 1, 10, 1, NULL, 1, NULL, 1, 9, 1, NULL),
 (17, 'Thu', 6, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (18, 'Thu', 6, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (19, 'Fri', 6, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -143,19 +143,19 @@ INSERT INTO `class_routine` (`id`, `day`, `class_id`, `section_id`, `1st_subject
 (64, 'Sat', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (65, 'Sat', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (66, 'Sat', 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(67, 'Sun', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(67, 'Sun', 9, 1, 1, 11, 3, 9, 2, 17, 4, 16, 5, 18, 6, 13),
 (68, 'Sun', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (69, 'Sun', 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(70, 'Mon', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(70, 'Mon', 9, 1, 1, 11, 11, 13, 10, 10, 9, 10, 8, 16, 7, 18),
 (71, 'Mon', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (72, 'Mon', 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(73, 'Tue', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(73, 'Tue', 9, 1, 1, 11, 4, 13, 5, 10, 3, 9, 6, 16, 5, 18),
 (74, 'Tue', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (75, 'Tue', 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(76, 'Wed', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(76, 'Wed', 9, 1, 1, 11, 3, 9, 6, 10, 2, 13, 6, 18, 2, 17),
 (77, 'Wed', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (78, 'Wed', 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(79, 'Thu', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(79, 'Thu', 9, 1, 1, 11, 2, 17, 7, 18, 11, 10, 10, 16, 8, 10),
 (80, 'Thu', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (81, 'Thu', 9, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (82, 'Fri', 9, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -205,9 +205,8 @@ CREATE TABLE `notices` (
 
 INSERT INTO `notices` (`noticeID`, `noticeDate`, `sender`, `receiver`, `user_id`, `subject`, `message`) VALUES
 (1, '2023-10-15 21:46:41', 'admin', 'student', NULL, 'Idea Contest', 'Dear all students please submit your idea with in 1 week. i.e. 22-10-2023'),
-(2, '2023-10-15 21:47:44', 'admin', 'student', NULL, 'Programming contest', 'Tomorrow will held a programming contest'),
-(3, '2023-10-15 22:00:17', 'admin', 'student', NULL, 'Proper Uniform', 'All students have to obey the rules of uniform code'),
-(5, '2023-10-15 22:08:31', 'admin', 'teacher', NULL, 'Meeting', 'All teachers have to come to the meeting room al 12pm on 2023-10-17');
+(5, '2023-10-15 22:08:31', 'admin', 'teacher', NULL, 'Meeting', 'All teachers have to come to the meeting room al 12pm on 2023-10-17'),
+(8, '2023-10-20 21:23:20', 'admin', 'student', NULL, 'Important Notice Regarding Upcoming Examinations', 'Dear students,  We hope this notice finds you well. As we approach the end of the semester, we want to inform you about some important details regarding the upcoming examinations.  **1. Examination Schedule:** The final examination schedule has been posted on our school\'s website. Please take a moment to review the schedule carefully. Ensure that you are aware of the date, time, and location of each of your examinations. If you have any concerns or scheduling conflicts, please reach out to our academic office immediately.  **2. Study Resources:** We encourage all students to make the most of our extensive library resources and academic support services. Preparing well for your exams is crucial for your success. If you need any assistance with your studies, don\'t hesitate to ask your professors or the academic support team.  **3. COVID-19 Safety Measures:** In light of the ongoing pandemic, we want to stress the importance of adhering to COVID-19 safety guidelines. Please wear your masks, maintain social distancing, and follow all safety protocols while on campus during the examination period. Your health and the health of others are our top priorities.  **4. Late Submissions and Absences:** Please remember that late submissions and unexcused absences from exams may result in academic penalties. If you anticipate any issues that may affect your ability to sit for an examination, contact the academic office as soon as possible to discuss your options.  **5. Additional Support:** If you\'re feeling stressed or overwhelmed during this period, our counseling services are available to provide support and resources for your mental well-being.  We understand that examinations can be a stressful time, but we have confidence in your abilities. Study hard, stay focused, and do your best. We\'re here to support you in your academic journey.  Best of luck with your preparations, and we look forward to seeing you succeed in your exams.  Sincerely,  [Your Name] [Your Title] [School Name] [Contact Information]');
 
 -- --------------------------------------------------------
 
@@ -256,10 +255,8 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`student_id`, `user_id`, `class_id`, `section_id`, `date_of_birth`, `address`, `phone_number`, `guardian_name`, `guardian_phone`, `gender`, `blood_group`, `profile_pic`) VALUES
 (3, 8, 10, 1, NULL, NULL, '+8801643067065', NULL, NULL, NULL, NULL, NULL),
-(5, 40, 7, 2, '2000-12-21', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
-(6, 39, 6, 1, '2023-10-03', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
-(7, 41, 10, 2, '2000-12-28', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
-(8, 24, 7, 2, '2023-10-04', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL);
+(8, 24, 7, 2, '2023-10-04', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
+(9, 3, 7, 1, '2023-10-02', NULL, '01914387831', NULL, NULL, 'Female', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -315,11 +312,13 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `user_id`, `subject_id`, `designation_id`, `date_of_birth`, `address`, `phone_number`, `gender`, `qualification`, `salary`, `profile_pic`) VALUES
-(3, 31, 6, 2, NULL, NULL, NULL, NULL, NULL, 72000.00, NULL),
-(7, 35, 9, 1, NULL, NULL, NULL, NULL, NULL, 60000.00, NULL),
-(8, 38, 10, 5, '2023-10-21', NULL, '01859265415', 'Female', NULL, 65000.00, NULL),
 (9, 32, 9, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55000.00, NULL),
-(10, 43, 10, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55005.00, NULL);
+(10, 43, 10, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55005.00, NULL),
+(11, 44, 1, 3, '2023-10-03', NULL, '01859265415', 'Male', NULL, 50000.00, NULL),
+(13, 30, 6, 4, '2023-10-01', NULL, '01914387831', 'Male', NULL, 65000.00, NULL),
+(16, 55, 9, 3, '2023-10-03', NULL, '01859265415', 'Female', NULL, 55000.00, NULL),
+(17, 54, 2, 3, '2023-08-31', NULL, '01859265415', 'Male', NULL, 65000.00, NULL),
+(18, 53, 5, 3, '2023-10-02', 'Satkhira, Khulna, Dhaka', '01914387831', 'Male', 'B.Sc in CSE - CGPA 4.00', 72000.00, 0x31382e6a706567);
 
 -- --------------------------------------------------------
 
@@ -387,16 +386,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_type`, `registrati
 (24, 'Rakib Hasan Fahim ', 'rakibhasanfahim3@gmail.com', 'b0373c556cd303f46d2c1a5ce16d1e97', 'student', '2023-10-06 14:30:43', 1),
 (26, 'Seam Nur', 'seamnur@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin', '2023-10-06 19:18:43', 1),
 (30, 'Md. Al Hasan', 'mdalhasan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'teacher', '2023-10-07 10:00:12', 1),
-(31, 'Hasan Mohammad Kafi', 'kafi@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'teacher', '2023-10-07 10:00:32', 1),
 (32, 'Mehadi Hasan', 'mehadihasansir@gmail.com', '202cb962ac59075b964b07152d234b70', 'teacher', '2023-10-07 10:01:17', 1),
-(35, 'Md. Sydur Rahman', 'sydurrahman@gmail.com', '202cb962ac59075b964b07152d234b70', 'teacher', '2023-10-08 01:31:16', 1),
 (36, 'Hari Sanker bormon', 'hari@gmail.com', '7ac55335bf8e6f68487cdef1fad050c5', 'student', '2023-10-08 18:54:55', 1),
-(38, 'Jerin Tasnim', 'jerintasnim@baust.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-10 21:21:15', 1),
-(39, 'Hridoy', 'hridoy@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'student', '2023-10-11 11:49:06', 1),
-(40, 'Sakib Talukder', 'sakibtalukder@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'student', '2023-10-11 20:01:20', 1),
-(41, 'MD, NUR A ALAM', 'fiverr.com.nur@gmail.com', '202cb962ac59075b964b07152d234b70', 'student', '2023-10-11 20:23:25', 1),
 (42, 'SK Niyaz Romiz', 'niyazromiz@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'accounts', '2023-10-11 20:27:18', 1),
-(43, 'Khalid', 'khalid@gamil.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-14 18:06:29', 1);
+(43, 'Khalid', 'khalid@gamil.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-14 18:06:29', 1),
+(44, 'Asif tanvir', 'asif@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-19 02:03:08', 1),
+(53, 'Hasan Mohammad Kafi', 'kafi@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:06', 1),
+(54, 'Sydur rahman', 'sydurrahman@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:30', 1),
+(55, 'Jerin Tasnim', 'jerintasnim@baust.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:55', 1);
 
 --
 -- Indexes for dumped tables
@@ -493,7 +490,7 @@ ALTER TABLE `class_routine`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -505,7 +502,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -517,7 +514,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `teacher_designations`
@@ -529,7 +526,7 @@ ALTER TABLE `teacher_designations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- Constraints for dumped tables
