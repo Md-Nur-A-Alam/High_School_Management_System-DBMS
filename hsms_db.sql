@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2023 at 10:24 PM
+-- Generation Time: Oct 23, 2023 at 01:03 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -254,9 +254,84 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `user_id`, `class_id`, `section_id`, `date_of_birth`, `address`, `phone_number`, `guardian_name`, `guardian_phone`, `gender`, `blood_group`, `profile_pic`) VALUES
-(3, 8, 10, 1, NULL, NULL, '+8801643067065', NULL, NULL, NULL, NULL, NULL),
-(8, 24, 7, 2, '2023-10-04', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
-(9, 3, 7, 1, '2023-10-02', NULL, '01914387831', NULL, NULL, 'Female', NULL, NULL);
+(21, 3, 6, 1, '2023-10-02', NULL, '01914387831', NULL, NULL, 'Female', NULL, NULL),
+(22, 4, 6, 1, '2023-10-11', NULL, '+8801643067065', NULL, NULL, 'Female', NULL, NULL),
+(23, 5, 6, 1, '2023-10-02', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
+(24, 6, 6, 1, '2023-10-23', NULL, '+8801643067065', NULL, NULL, 'Female', NULL, NULL),
+(25, 8, 6, 2, '2023-10-01', NULL, '01859265415', NULL, NULL, 'Female', NULL, NULL),
+(26, 9, 6, 2, '2023-10-04', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(27, 10, 6, 2, '2023-10-02', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
+(28, 11, 6, 2, '2023-10-04', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
+(29, 12, 7, 1, '2023-09-18', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(30, 13, 7, 1, '2023-08-17', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
+(31, 14, 7, 1, '2023-07-05', NULL, '01859265415', NULL, NULL, 'Male', NULL, NULL),
+(32, 15, 7, 1, '2023-03-09', NULL, '01859265415', NULL, NULL, 'Male', NULL, NULL),
+(33, 16, 8, 1, '2023-09-07', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(34, 17, 8, 1, '2022-11-16', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
+(35, 18, 8, 1, '2023-06-24', NULL, '01914387831', NULL, NULL, 'Female', NULL, NULL),
+(36, 19, 9, 1, '2023-04-16', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(37, 20, 7, 2, '2023-06-03', NULL, '01859265415', NULL, NULL, 'Female', NULL, NULL),
+(38, 21, 8, 2, '2023-04-16', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
+(39, 22, 9, 2, '2022-10-29', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
+(40, 23, 10, 1, '2023-05-20', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
+(41, 24, 10, 2, '2023-04-16', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(42, 36, 10, 1, '2022-04-11', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL);
+
+--
+-- Triggers `students`
+--
+DELIMITER $$
+CREATE TRIGGER `after_students_insert` AFTER INSERT ON `students` FOR EACH ROW BEGIN
+    INSERT INTO student_attendance (stu_id) VALUES (NEW.student_id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_students_delete` BEFORE DELETE ON `students` FOR EACH ROW BEGIN
+    delete from student_attendance where stu_id = old.student_id;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_attendance`
+--
+
+CREATE TABLE `student_attendance` (
+  `atten_id` int(11) NOT NULL,
+  `stu_id` int(11) NOT NULL,
+  `2023-10-23` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_attendance`
+--
+
+INSERT INTO `student_attendance` (`atten_id`, `stu_id`, `2023-10-23`) VALUES
+(3, 21, 1),
+(4, 22, 1),
+(5, 23, 1),
+(6, 24, 0),
+(7, 25, 1),
+(8, 26, 0),
+(9, 27, 1),
+(10, 28, 1),
+(11, 29, 1),
+(12, 30, 1),
+(13, 31, 0),
+(14, 32, 1),
+(15, 33, 1),
+(16, 34, 1),
+(17, 35, 0),
+(18, 36, 1),
+(19, 37, 1),
+(20, 38, 1),
+(21, 39, 0),
+(22, 40, 1),
+(23, 41, 1),
+(24, 42, 0);
 
 -- --------------------------------------------------------
 
@@ -448,6 +523,13 @@ ALTER TABLE `students`
   ADD KEY `section_id` (`section_id`);
 
 --
+-- Indexes for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  ADD PRIMARY KEY (`atten_id`),
+  ADD KEY `fk_student_attendance_stu_id` (`stu_id`);
+
+--
 -- Indexes for table `subjects`
 --
 ALTER TABLE `subjects`
@@ -502,7 +584,13 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  MODIFY `atten_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -526,7 +614,7 @@ ALTER TABLE `teacher_designations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Constraints for dumped tables
@@ -564,6 +652,12 @@ ALTER TABLE `students`
   ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `students_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`),
   ADD CONSTRAINT `students_ibfk_3` FOREIGN KEY (`section_id`) REFERENCES `sections` (`section_id`);
+
+--
+-- Constraints for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  ADD CONSTRAINT `fk_student_attendance_stu_id` FOREIGN KEY (`stu_id`) REFERENCES `students` (`student_id`);
 
 --
 -- Constraints for table `teachers`

@@ -188,7 +188,7 @@ if (isset($_POST['submit'])) {
                     <td class="fw-light">' . $email . '</th>
                     <td class="fw-light">' . $regTime . '</th>
                     <td>
-                    <button class="btn btn-dark btn-sm"><a href="admin_teacher_details.php?detailUID=' . $id . '" class="text-light">Details</a></button>
+                    <button class="btn btn-success btn-sm"><a href="admin_teacher_details.php?detailUID=' . $id . '" class="text-light">Approve & Details</a></button>
                     <button class="btn btn-danger btn-sm" onclick="confirmDelete(' . $id . ')">Delete</button>
                     </td>
                     </tr>    ';

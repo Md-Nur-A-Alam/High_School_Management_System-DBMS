@@ -203,72 +203,74 @@ if (isset($_POST['back'])) {
                             <div class="col-3 fw-bold">Address</div>
                             <div class="col-9">: ' . $address . '</div>
                         </div>
-                    </div>';?>
-                </div>
-                
-                <hr>
-                <!-- =========== modify button here =========== -->
-                <div class="container my-3 d-flex justify-content-between">
-                    <form method="post">
-                        <button class="btn btn-dark" name="back">Back</button>
-                    </form>
-                    <form method="post">
-                        <button class="btn btn-danger" name="modify">Update data</button>
-                    </form>
+                    </div>'; ?>
+            </div>
 
-                </div>
-                <!-- ======== Update form here ========= -->
-                <div class="container">
+            <hr>
+            <!-- =========== modify button here =========== -->
+            <div class="container my-3 d-flex justify-content-between">
+                <form method="post">
+                    <button class="btn btn-dark" name="back">Back</button>
+                </form>
+                <form method="post">
+                    <button class="btn btn-danger" name="modify">Update data</button>
+                </form>
 
-                    <?php
-                    if (isset($_POST['modify'])) {
-                        echo '<div class="container my-5 ">
-            <form method="post">
-                <h2>Student information update:</h2>
-                <hr>
-                <div class="mb-3">
-                    <label>Class:</label>
-                    <select class="form-select" name="class">
-                        <option value="6" name="class">Class 6</option>
-                        <option value="7" name="class">Class 7</option>
-                        <option value="8" name="class">Class 8</option>
-                        <option value="9" name="class">Class 9</option>
-                        <option value="10" name="class">Class 10</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Section:</label>
-                    <select class="form-select" name="section">
-                        <option value="1" name="section">A</option>
-                        <option value="2" name="section">B</option>
-                        <option value="3" name="section">C</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Gender:</label>
-                    <select class="form-select" name="gender">
-                        <option value="Female" name="gender">Female</option>
-                        <option value="Male" name="gender">Male</option>
-                        <option value="Other" name="gender">Others</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Date of Birth:</label>
-                    <input type="date" class="form-control" placeholder="Enter Date of Birth..." name="dob">
-                </div>
-                <div class="mb-3">
-                    <label>Phone Number:</label>
-                    <input type="text" class="form-control" placeholder="Enter Phone No..." name="phone">
-                </div>
+            </div>
+            <!-- ======== Update form here ========= -->
+            <div class="container">
 
-                <button type="submit" class="btn btn-success" name="update">Save</button>
-            </form>
-        </div>';
-                    }
-                    ?>
-                </div>
-                <hr>
+                <?php
+                if (isset($_POST['modify'])) {
+                    echo '<div class="container my-5 ">
+                                <form method="post">
+                                    <h2>Student information update:</h2>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <label>Class:</label>
+                                        <select class="form-select" name="class">
+                                            <option value="6" name="class">Class 6</option>
+                                            <option value="7" name="class">Class 7</option>
+                                            <option value="8" name="class">Class 8</option>
+                                            <option value="9" name="class">Class 9</option>
+                                            <option value="10" name="class">Class 10</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Section:</label>
+                                        <select class="form-select" name="section">
+                                            <option value="1" name="section">A</option>
+                                            <option value="2" name="section">B</option>
+                                            <option value="3" name="section">C</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Gender:</label>
+                                        <select class="form-select" name="gender">
+                                            <option value="Female" name="gender">Female</option>
+                                            <option value="Male" name="gender">Male</option>
+                                            <option value="Other" name="gender">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Date of Birth:</label>
+                                        <input type="date" class="form-control" placeholder="Enter Date of Birth..." name="dob">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Phone Number:</label>
+                                        <input type="text" class="form-control" placeholder="Enter Phone No..." name="phone">
+                                    </div>
 
+                                    <button type="submit" class="btn btn-success" name="update">Save</button>
+                                </form>
+                            </div>';
+                }
+                ?>
+            </div>
+            <hr>
+        </div>
+    </div>
+    </div>
 </body>
 
 </html>
