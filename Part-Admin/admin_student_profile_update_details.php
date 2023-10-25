@@ -15,6 +15,20 @@ $dob = null;
 $address = null;
 $phone = null;
 $gender = null;
+$Up_uid = null;
+$Up_sid = null;
+$Up_name = null;
+$Up_email = null;
+$Up_class = null;
+$Up_section = null;
+$Up_blood = null;
+$Up_guardian = null;
+$Up_gPhone = null;
+$Up_dob = null;
+$Up_address = null;
+$Up_phone = null;
+$Up_gender = null;
+
 $profilePicName = null;
 $pp = '';  // Initialize the profile picture HTML variable
 
@@ -42,12 +56,50 @@ if (isset($_GET['detailUID'])) {
     $address = $row['address']; //
     $phone = $row['phone_number']; //
     $gender = $row['gender']; //
-    $profilePicName = $row['profile_pic'];
-    if ($profilePicName == null) {
-        $profilePicName = 'default.jpg';
-    }
-}
 
+    
+    $select = "SELECT class_name,
+	section_name,
+	spa.`class_id` AS cls,
+	spa.`section_id` AS sec,
+	spa.`gender`,
+	spa.`phone`,
+	spa.`dob`,
+	spa.`blood_group`,
+	spa.`guardian`,
+	spa.`guardian_phone`,
+	spa.`address`
+    FROM users u
+    INNER JOIN stu_profile_approval spa ON spa.`user_id` = u.`id`
+    LEFT JOIN classes c ON spa.`class_id` = c.`class_id`
+    LEFT JOIN sections sec ON sec.`section_id`=spa.`section_id`
+    WHERE u.id = '$uid';";
+
+    $profilePicName = $row['profile_pic'];
+        if ($profilePicName == null) {
+            $profilePicName = 'default.jpg';
+        }
+
+
+    $result = mysqli_query($conn, $select);
+    $row = mysqli_fetch_assoc($result);
+    $Up_class = $row['class_name']; //
+    $Up_section = $row['section_name']; //
+    $Up_blood = $row['blood_group'];
+    $Up_guardian = $row['guardian'];
+    $Up_gPhone = $row['guardian_phone'];
+    $Up_rdob = $row['dob'];
+    $Up_dob = date('F j, Y', strtotime($Up_rdob));
+    $Up_address = $row['address']; //
+    $Up_phone = $row['phone']; //
+    $Up_gender = $row['gender']; //
+
+    $ucls = $row['cls'];
+    $usec = $row['sec'];
+
+
+    
+}
 $pp = '<div class="col-3">
         <div><img src="../uploads/student_profile_pictures/' . $profilePicName . '" class="profile-image" alt="' . $name . '"></div>
         </div>';
@@ -56,38 +108,24 @@ $pp = '<div class="col-3">
 if (isset($_POST['back'])) {
     header('Location: admin_student.php');
 } elseif (isset($_POST['update'])) {
-    $class = ($_POST['class']);
-    $section = ($_POST['section']);
-    $gender = ($_POST['gender']);
-    $dob = ($_POST['dob']);
-    $phone = ($_POST['phone']);
-    $user_type = 'student';
-    $approval = '1';
 
-
-
-    if (!$sid) {
-        $insert = "INSERT INTO students (user_id, class_id, section_id, phone_number, gender, date_of_birth)
-            VALUES ('$uid', '$class', '$section', '$phone', '$gender', '$dob');";
-        mysqli_query($conn, $insert);
-    } else {
         $select2 = "UPDATE students
         SET
-            class_id = '$class',
-            section_id = '$section',
-            phone_number = '$phone',
-            gender = '$gender',
-            date_of_birth = '$dob'
+            class_id = '$ucls',
+            section_id = '$usec',
+            phone_number = '$Up_phone',
+            gender = '$Up_gender',
+            date_of_birth = '$Up_rdob',
+            address = '$Up_address',
+            guardian_name = '$Up_guardian',
+            guardian_phone = '$Up_gPhone',
+            blood_group = '$Up_blood'
         WHERE
-            student_id = '$sid';";
+            user_id = '$uid';";
         mysqli_query($conn, $select2);
-    }
-    $select1 = "UPDATE users
-                SET
-                    approval = '$approval'
-                WHERE
-                    id = '$uid'";
-    mysqli_query($conn, $select1);
+
+        $delete = "DELETE FROM stu_profile_approval where user_id = $uid;";
+        mysqli_query($conn, $delete);
 
     header('location: admin_student_details.php?detailUID=' . $uid . '');
 }
@@ -106,7 +144,7 @@ if (isset($_POST['back'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <title>Admin Student Details</title>
+    <title>Student Profile Approval</title>
 
     <style>
         .profile-image {
@@ -134,74 +172,88 @@ if (isset($_POST['back'])) {
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Name</div>
-                            <div class="col-9">: ' . $name . '</div>
+                            <div class="col-4">: ' . $name . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Class</div>
-                            <div class="col-9">: ' . $class . '</div>
+                            <div class="col-5">: ' . $class . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_class . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Section</div>
-                            <div class="col-9">: ' . $section . '</div>
+                            <div class="col-5">: ' . $section . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_section . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Student ID</div>
-                            <div class="col-9">: ' . $sid . '</div>
+                            <div class="col-5">: ' . $sid . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">User ID</div>
-                            <div class="col-9">: ' . $uid . '</div>
+                            <div class="col-5">: ' . $uid . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Gender</div>
-                            <div class="col-9">: ' . $gender . '</div>
+                            <div class="col-5">: ' . $gender . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_gender . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Phone No.</div>
-                            <div class="col-9">: ' . $phone . '</div>
+                            <div class="col-5">: ' . $phone . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_phone . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Email</div>
-                            <div class="col-9">: ' . $email . '</div>
-                        </div>
+                            <div class="col-5">: ' . $email . '</div>                        </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Date of Birth</div>
-                            <div class="col-9">: ' . $dob . '</div>
+                            <div class="col-5">: ' . $dob . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_dob . '</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3 fw-bold">Blood Group:</div>
+                            <div class="col-5">: ' . $blood . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_blood . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Guardian</div>
-                            <div class="col-9">: ' . $guardian . '</div>
+                            <div class="col-5">: ' . $guardian . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_guardian . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Guardian Phone</div>
-                            <div class="col-9 text-success fw-normal">: ' . $gPhone . '</div>
+                            <div class="col-5 text-success fw-normal">: ' . $gPhone . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_gPhone . '</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3 fw-bold">Address</div>
-                            <div class="col-9">: ' . $address . '</div>
+                            <div class="col-5">: ' . $address . '</div>
+                            <div class="col-4 text-primary fw-bold">to --> ' . $Up_address . '</div>
                         </div>
                     </div>'; ?>
             </div>
@@ -213,61 +265,10 @@ if (isset($_POST['back'])) {
                     <button class="btn btn-dark" name="back">Back</button>
                 </form>
                 <form method="post">
-                    <button class="btn btn-danger" name="modify">Update data</button>
+                    <button class="btn btn-danger" name="update">Update data</button>
                 </form>
 
             </div>
-            <!-- ======== Update form here ========= -->
-            <div class="container">
-
-                <?php
-                if (isset($_POST['modify'])) {
-                    echo '<div class="container my-5 ">
-                                <form method="post">
-                                    <h2>Student information update:</h2>
-                                    <hr>
-                                    <div class="mb-3">
-                                        <label>Class:</label>
-                                        <select class="form-select" name="class">
-                                            <option value="6" name="class">Class 6</option>
-                                            <option value="7" name="class">Class 7</option>
-                                            <option value="8" name="class">Class 8</option>
-                                            <option value="9" name="class">Class 9</option>
-                                            <option value="10" name="class">Class 10</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Section:</label>
-                                        <select class="form-select" name="section">
-                                            <option value="1" name="section">A</option>
-                                            <option value="2" name="section">B</option>
-                                            <option value="3" name="section">C</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Gender:</label>
-                                        <select class="form-select" name="gender">
-                                            <option value="Female" name="gender">Female</option>
-                                            <option value="Male" name="gender">Male</option>
-                                            <option value="Other" name="gender">Others</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Date of Birth:</label>
-                                        <input type="date" class="form-control" placeholder="Enter Date of Birth..." name="dob">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label>Phone Number:</label>
-                                        <input type="text" class="form-control" placeholder="Enter Phone No..." name="phone">
-                                    </div>
-
-                                    <button type="submit" class="btn btn-success" name="update">Save</button>
-                                </form>
-                            </div>';
-                }
-                ?>
-            </div>
-            <hr>
         </div>
     </div>
     </div>

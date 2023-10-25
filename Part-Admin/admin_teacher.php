@@ -2,28 +2,37 @@
 session_start();
 include '../template/admin_header.html';
 include '../template/database.php';
-
+$error = null;
+function sanitizeName($input)
+{
+    // Remove any characters that are not letters (A-Z and a-z), '.', or '-'
+    $sanitized = preg_replace("/[^A-Za-z .-]+/", "", $input);
+    return $sanitized;
+}
 if (isset($_POST['submit'])) {
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $name = SanitizeName($_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = md5($_POST['password']);
     $cpass = md5($_POST['cpassword']);
     $user_type = 'teacher';
-
-    $select = " SELECT * FROM users WHERE email= '$email' && password ='$pass'";
-
-    $result = mysqli_query($conn, $select);
-
-    if (mysqli_num_rows($result) > 0) {
-        echo 'teacher already exist!';
+    if ($name !== $_POST['name']) {
+        $error = "ERROR: insert a valid name please";
     } else {
-        if ($pass != $cpass) {
-            echo 'password does not match! <br>';
+        $select = " SELECT * FROM users WHERE email= '$email' && password ='$pass'";
+
+        $result = mysqli_query($conn, $select);
+
+        if (mysqli_num_rows($result) > 0) {
+            echo 'teacher already exist!';
         } else {
-            $insert = " INSERT INTO users(name, email, password, user_type) VALUES('$name','$email','$pass','$user_type')";
-            mysqli_query($conn, $insert);
-            // echo "data inserted successfully";
-            header('location: admin_teacher.php');
+            if ($pass != $cpass) {
+                echo 'password does not match! <br>';
+            } else {
+                $insert = " INSERT INTO users(name, email, password, user_type) VALUES('$name','$email','$pass','$user_type')";
+                mysqli_query($conn, $insert);
+                // echo "data inserted successfully";
+                header('location: admin_teacher.php');
+            }
         }
     }
 }
@@ -49,6 +58,7 @@ if (isset($_POST['submit'])) {
 <body>
     <hr>
     <div class="container my-3">
+    <h4 class="text-danger fw-bold"><?php echo $error ?></h4>
         <h2>Teacher Page:</h2>
         <form method="post">
             <input type="text" placeholder="Looking for..." name="search_data">

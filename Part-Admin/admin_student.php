@@ -2,15 +2,25 @@
 session_start();
 include '../template/admin_header.html';
 @include '../template/database.php';
+$error = null;
+
+function sanitizeName($input) {
+    // Remove any characters that are not letters (A-Z and a-z), '.', or '-'
+    $sanitized = preg_replace("/[^A-Za-z .-]+/", "", $input);
+    return $sanitized;
+}
 
 if (isset($_POST['submit'])) {
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $name = sanitizeName($_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = md5($_POST['password']);
     $cpass = md5($_POST['cpassword']);
     $user_type = 'student';
 
-    $select = " SELECT * FROM users WHERE email= '$email' && password ='$pass'";
+    if ($name !== $_POST['name']) {
+       $error = "Error : Invalid characters in the name field.";
+    }else {
+        $select = " SELECT * FROM users WHERE email= '$email' && password ='$pass'";
 
     $result = mysqli_query($conn, $select);
 
@@ -25,6 +35,7 @@ if (isset($_POST['submit'])) {
             // echo "data inserted successfully";
             header('location: admin_student.php');
         }
+    }
     }
 }
 ?>
@@ -49,6 +60,7 @@ if (isset($_POST['submit'])) {
 <body>
     <hr>
     <div class="container my-3">
+        <h4 class="text-danger fw-bold"><?php echo $error ?></h4>
         <h2>Student Page:</h2>
         <form method="post">
             <div class="my-1">
@@ -71,7 +83,8 @@ if (isset($_POST['submit'])) {
             <input type="text" placeholder="Looking for..." name="search_data">
             <button class="btn btn-success mx-2 btn-sm" name="Search">General Search</button>
             <button class="btn btn-danger mx-2 btn-sm" name="List">Full List</button>
-            <button class="btn btn-warning mx-2 btn-sm" name="approval">Approval Pending</button>
+            <button class="btn btn-warning mx-2 btn-sm" name="approval">Registration Approval</button>
+            <button class="btn btn-secondary mx-2 btn-sm" name="Proapproval">Profile Approval</button>
             <button class="btn btn-primary mx-2 btn-sm " name="AddStudent">Add Student</button>
         </form>
     </div>
@@ -82,6 +95,7 @@ if (isset($_POST['submit'])) {
                 if (isset($_POST['AddStudent'])) {
                     $_POST['Search2'] = false;
                     $_POST['Search'] = false;
+                    $_POST['Proapproval'] = false;
                     $_POST['approval'] = false;
                     $_POST['List'] = false;
                     echo '<div class="container my-5">
@@ -111,6 +125,7 @@ if (isset($_POST['submit'])) {
                 } elseif (isset($_POST['List'])) {
                     $_POST['Search2'] = false;
                     $_POST['Search'] = false;
+                    $_POST['Proapproval'] = false;
                     $_POST['approval'] = false;
                     $_POST['AddStudent'] = false;
                     echo '<thead class="table-dark">
@@ -174,6 +189,7 @@ if (isset($_POST['submit'])) {
                     }
                 } elseif (isset($_POST['approval'])) {
                     $_POST['Search2'] = false;
+                    $_POST['Proapproval'] = false;
                     $_POST['Search'] = false;
                     $_POST['List'] = false;
                     $_POST['AddStudent'] = false;
@@ -220,10 +236,58 @@ if (isset($_POST['submit'])) {
                     </tr>    ';
                         }
                     }
+                }elseif (isset($_POST['Proapproval'])) {
+                    $_POST['Search2'] = false;
+                    $_POST['approval'] = false;
+                    $_POST['Search'] = false;
+                    $_POST['List'] = false;
+                    $_POST['AddStudent'] = false;
+                    echo '<thead class="table-dark">
+                    <tr>
+                        <th scope="col" class="fw-normal">Sl.</th>
+                        <th scope="col" class="fw-normal">Student ID</th>
+                        <th scope="col" class="fw-normal">Name</th>
+                        <th scope="col" class="fw-normal">Email</th>
+                        <th scope="col" class="fw-normal">Operations</th>
+                    </tr>
+                </thead>';
+                    $select = "SELECT
+                    ROW_NUMBER() OVER (ORDER BY u.id) AS sl,
+                    s.student_id,
+                    u.name,
+                    u.email,
+                    u.id
+                FROM
+                    users u
+                LEFT JOIN students s ON u.id = s.user_id
+                LEFT JOIN classes c ON c.class_id = s.class_id
+                LEFT JOIN sections sec ON sec.section_id = s.section_id
+                INNER JOIN stu_profile_approval spa ON s.user_id = spa.user_id;";
+                    $result = mysqli_query($conn, $select);
+                    if ($result) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $sl = $row['sl'];
+                            $sid = $row['student_id'];
+                            $name = $row['name'];
+                            $email = $row['email'];
+                            $uid = $row['id'];
+                            echo '<tr>
+                        <td class="fw-light">' . $sl . '</th>
+                        <td class="fw-light">' . $sid . '</th>
+                    <td class="fw-light">' . $name . '</th>
+                    <td class="fw-light">' . $email . '</th>
+                    <td>
+                        <button class="btn btn-success btn-sm"><a href="admin_student_profile_update_details.php?detailUID=' . $uid . '" class="text-light">Approve & Details</a></button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmUPDelete(' . $uid . ')">Delete</button>
+                    </td>
+                    </tr>    ';
+                        }
+                    }
                 } elseif (isset($_POST['Search'])) {
                     $_POST['Search2'] = false;
                     $_POST['List'] = false;
                     $_POST['approval'] = false;
+                    $_POST['Proapproval'] = false;
                     $_POST['AddStudent'] = false;
                     $search = $_POST['search_data'];
                     echo '<thead class="table-dark">
@@ -390,6 +454,12 @@ if (isset($_POST['submit'])) {
         var result = confirm("Are you sure you want to delete this Student?");
         if (result) {
             window.location.href = 'admin_student_delete.php?deleteUID=' + uid;
+        }
+    }
+    function confirmUPDelete(uid) {
+        var result = confirm("Are you sure you want to delete this Student?");
+        if (result) {
+            window.location.href = 'admin_student_delete_update_details.php?deleteUID=' + uid;
         }
     }
 </script>

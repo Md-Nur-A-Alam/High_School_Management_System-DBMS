@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2023 at 01:03 AM
+-- Generation Time: Oct 26, 2023 at 12:29 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -23,6 +23,28 @@ SET time_zone = "+00:00";
 DROP DATABASE IF EXISTS `hsms_db`;
 CREATE DATABASE IF NOT EXISTS `hsms_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `hsms_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assignment`
+--
+
+CREATE TABLE `assignment` (
+  `id` int(11) NOT NULL,
+  `stu_id` int(11) DEFAULT NULL,
+  `Bangla` longblob DEFAULT NULL,
+  `English` longblob DEFAULT NULL,
+  `Math` longblob DEFAULT NULL,
+  `SocialScience` longblob DEFAULT NULL,
+  `Science` longblob DEFAULT NULL,
+  `Commerce` longblob DEFAULT NULL,
+  `Arts` longblob DEFAULT NULL,
+  `PhysicalEducation` longblob DEFAULT NULL,
+  `ICT` longblob DEFAULT NULL,
+  `Religion` longblob DEFAULT NULL,
+  `Agriculture` longblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -206,7 +228,8 @@ CREATE TABLE `notices` (
 INSERT INTO `notices` (`noticeID`, `noticeDate`, `sender`, `receiver`, `user_id`, `subject`, `message`) VALUES
 (1, '2023-10-15 21:46:41', 'admin', 'student', NULL, 'Idea Contest', 'Dear all students please submit your idea with in 1 week. i.e. 22-10-2023'),
 (5, '2023-10-15 22:08:31', 'admin', 'teacher', NULL, 'Meeting', 'All teachers have to come to the meeting room al 12pm on 2023-10-17'),
-(8, '2023-10-20 21:23:20', 'admin', 'student', NULL, 'Important Notice Regarding Upcoming Examinations', 'Dear students,  We hope this notice finds you well. As we approach the end of the semester, we want to inform you about some important details regarding the upcoming examinations.  **1. Examination Schedule:** The final examination schedule has been posted on our school\'s website. Please take a moment to review the schedule carefully. Ensure that you are aware of the date, time, and location of each of your examinations. If you have any concerns or scheduling conflicts, please reach out to our academic office immediately.  **2. Study Resources:** We encourage all students to make the most of our extensive library resources and academic support services. Preparing well for your exams is crucial for your success. If you need any assistance with your studies, don\'t hesitate to ask your professors or the academic support team.  **3. COVID-19 Safety Measures:** In light of the ongoing pandemic, we want to stress the importance of adhering to COVID-19 safety guidelines. Please wear your masks, maintain social distancing, and follow all safety protocols while on campus during the examination period. Your health and the health of others are our top priorities.  **4. Late Submissions and Absences:** Please remember that late submissions and unexcused absences from exams may result in academic penalties. If you anticipate any issues that may affect your ability to sit for an examination, contact the academic office as soon as possible to discuss your options.  **5. Additional Support:** If you\'re feeling stressed or overwhelmed during this period, our counseling services are available to provide support and resources for your mental well-being.  We understand that examinations can be a stressful time, but we have confidence in your abilities. Study hard, stay focused, and do your best. We\'re here to support you in your academic journey.  Best of luck with your preparations, and we look forward to seeing you succeed in your exams.  Sincerely,  [Your Name] [Your Title] [School Name] [Contact Information]');
+(8, '2023-10-20 21:23:20', 'admin', 'student', NULL, 'Important Notice Regarding Upcoming Examinations', 'Dear students,  We hope this notice finds you well. As we approach the end of the semester, we want to inform you about some important details regarding the upcoming examinations.  **1. Examination Schedule:** The final examination schedule has been posted on our school\'s website. Please take a moment to review the schedule carefully. Ensure that you are aware of the date, time, and location of each of your examinations. If you have any concerns or scheduling conflicts, please reach out to our academic office immediately.  **2. Study Resources:** We encourage all students to make the most of our extensive library resources and academic support services. Preparing well for your exams is crucial for your success. If you need any assistance with your studies, don\'t hesitate to ask your professors or the academic support team.  **3. COVID-19 Safety Measures:** In light of the ongoing pandemic, we want to stress the importance of adhering to COVID-19 safety guidelines. Please wear your masks, maintain social distancing, and follow all safety protocols while on campus during the examination period. Your health and the health of others are our top priorities.  **4. Late Submissions and Absences:** Please remember that late submissions and unexcused absences from exams may result in academic penalties. If you anticipate any issues that may affect your ability to sit for an examination, contact the academic office as soon as possible to discuss your options.  **5. Additional Support:** If you\'re feeling stressed or overwhelmed during this period, our counseling services are available to provide support and resources for your mental well-being.  We understand that examinations can be a stressful time, but we have confidence in your abilities. Study hard, stay focused, and do your best. We\'re here to support you in your academic journey.  Best of luck with your preparations, and we look forward to seeing you succeed in your exams.  Sincerely,  [Your Name] [Your Title] [School Name] [Contact Information]'),
+(11, '2023-10-24 09:24:52', 'teacher', 'student', NULL, 'Assignment Submission', 'Please submit your assignment with in 7 days');
 
 -- --------------------------------------------------------
 
@@ -258,23 +281,23 @@ INSERT INTO `students` (`student_id`, `user_id`, `class_id`, `section_id`, `date
 (22, 4, 6, 1, '2023-10-11', NULL, '+8801643067065', NULL, NULL, 'Female', NULL, NULL),
 (23, 5, 6, 1, '2023-10-02', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
 (24, 6, 6, 1, '2023-10-23', NULL, '+8801643067065', NULL, NULL, 'Female', NULL, NULL),
-(25, 8, 6, 2, '2023-10-01', NULL, '01859265415', NULL, NULL, 'Female', NULL, NULL),
+(25, 8, 8, 2, '2001-12-12', 'parbatiput, nilphamary', '01742833288', 'ABBA', '01643067065', 'Female', 'O+', 0x32352e6a7067),
 (26, 9, 6, 2, '2023-10-04', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
 (27, 10, 6, 2, '2023-10-02', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
-(28, 11, 6, 2, '2023-10-04', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
+(28, 11, 10, 1, '0000-00-00', 'dhaka', '+8801643067065', 'Zikrul Haque', '01911170999', 'Male', 'A+', 0x6e6f6e2d736d696c696e672d4c696e6b6564496e2d70726f66696c652d70686f746f2e6a7067),
 (29, 12, 7, 1, '2023-09-18', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
 (30, 13, 7, 1, '2023-08-17', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
 (31, 14, 7, 1, '2023-07-05', NULL, '01859265415', NULL, NULL, 'Male', NULL, NULL),
 (32, 15, 7, 1, '2023-03-09', NULL, '01859265415', NULL, NULL, 'Male', NULL, NULL),
-(33, 16, 8, 1, '2023-09-07', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(33, 16, 8, 1, '2023-09-07', NULL, '01643067065', NULL, NULL, 'Male', NULL, 0x33332e6a7067),
 (34, 17, 8, 1, '2022-11-16', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
 (35, 18, 8, 1, '2023-06-24', NULL, '01914387831', NULL, NULL, 'Female', NULL, NULL),
 (36, 19, 9, 1, '2023-04-16', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
 (37, 20, 7, 2, '2023-06-03', NULL, '01859265415', NULL, NULL, 'Female', NULL, NULL),
 (38, 21, 8, 2, '2023-04-16', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
 (39, 22, 9, 2, '2022-10-29', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
-(40, 23, 10, 1, '2023-05-20', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL),
-(41, 24, 10, 2, '2023-04-16', NULL, '01643067065', NULL, NULL, 'Male', NULL, NULL),
+(40, 23, 10, 1, '2001-12-28', 'Satkhira, Khulna, Dhaka', '+8801643067065', 'Md. Shah Alam', '01725794566', 'Male', 'O+', 0x34302e6a7067),
+(41, 24, 10, 2, '2001-01-30', 'Jashore, Bangladesh', '01914387831', 'AMMU', '01643067065', 'Male', 'B-', 0x34312e6a7067),
 (42, 36, 10, 1, '2022-04-11', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL);
 
 --
@@ -302,36 +325,58 @@ DELIMITER ;
 CREATE TABLE `student_attendance` (
   `atten_id` int(11) NOT NULL,
   `stu_id` int(11) NOT NULL,
-  `2023-10-23` int(11) DEFAULT 0
+  `2023-10-23` int(11) DEFAULT 0,
+  `2023-10-24` int(11) DEFAULT 0,
+  `2023-10-22` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student_attendance`
 --
 
-INSERT INTO `student_attendance` (`atten_id`, `stu_id`, `2023-10-23`) VALUES
-(3, 21, 1),
-(4, 22, 1),
-(5, 23, 1),
-(6, 24, 0),
-(7, 25, 1),
-(8, 26, 0),
-(9, 27, 1),
-(10, 28, 1),
-(11, 29, 1),
-(12, 30, 1),
-(13, 31, 0),
-(14, 32, 1),
-(15, 33, 1),
-(16, 34, 1),
-(17, 35, 0),
-(18, 36, 1),
-(19, 37, 1),
-(20, 38, 1),
-(21, 39, 0),
-(22, 40, 1),
-(23, 41, 1),
-(24, 42, 0);
+INSERT INTO `student_attendance` (`atten_id`, `stu_id`, `2023-10-23`, `2023-10-24`, `2023-10-22`) VALUES
+(3, 21, 1, 1, 1),
+(4, 22, 1, 1, 1),
+(5, 23, 1, 1, 0),
+(6, 24, 0, 1, 0),
+(7, 25, 1, 0, 0),
+(8, 26, 0, 0, 0),
+(9, 27, 1, 0, 0),
+(10, 28, 1, 0, 0),
+(11, 29, 1, 0, 0),
+(12, 30, 1, 0, 0),
+(13, 31, 0, 0, 0),
+(14, 32, 1, 0, 0),
+(15, 33, 1, 0, 0),
+(16, 34, 1, 0, 0),
+(17, 35, 0, 0, 0),
+(18, 36, 1, 0, 0),
+(19, 37, 1, 0, 0),
+(20, 38, 1, 0, 0),
+(21, 39, 0, 0, 0),
+(22, 40, 1, 0, 0),
+(23, 41, 1, 0, 0),
+(24, 42, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stu_profile_approval`
+--
+
+CREATE TABLE `stu_profile_approval` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `guardian` varchar(100) DEFAULT NULL,
+  `guardian_phone` varchar(20) DEFAULT NULL,
+  `gender` enum('Female','Male','Others') DEFAULT NULL,
+  `blood_group` enum('A-','A+','B-','B+','AB-','AB+','O-','O+') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -390,7 +435,7 @@ INSERT INTO `teachers` (`teacher_id`, `user_id`, `subject_id`, `designation_id`,
 (9, 32, 9, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55000.00, NULL),
 (10, 43, 10, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55005.00, NULL),
 (11, 44, 1, 3, '2023-10-03', NULL, '01859265415', 'Male', NULL, 50000.00, NULL),
-(13, 30, 6, 4, '2023-10-01', NULL, '01914387831', 'Male', NULL, 65000.00, NULL),
+(13, 30, 6, 4, '2023-10-01', NULL, '01914387831', 'Male', NULL, 65000.00, 0x31332e6a7067),
 (16, 55, 9, 3, '2023-10-03', NULL, '01859265415', 'Female', NULL, 55000.00, NULL),
 (17, 54, 2, 3, '2023-08-31', NULL, '01859265415', 'Male', NULL, 65000.00, NULL),
 (18, 53, 5, 3, '2023-10-02', 'Satkhira, Khulna, Dhaka', '01914387831', 'Male', 'B.Sc in CSE - CGPA 4.00', 72000.00, 0x31382e6a706567);
@@ -475,6 +520,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_type`, `registrati
 --
 
 --
+-- Indexes for table `assignment`
+--
+ALTER TABLE `assignment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
@@ -530,6 +581,12 @@ ALTER TABLE `student_attendance`
   ADD KEY `fk_student_attendance_stu_id` (`stu_id`);
 
 --
+-- Indexes for table `stu_profile_approval`
+--
+ALTER TABLE `stu_profile_approval`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `subjects`
 --
 ALTER TABLE `subjects`
@@ -563,6 +620,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `assignment`
+--
+ALTER TABLE `assignment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `class_routine`
 --
 ALTER TABLE `class_routine`
@@ -572,7 +635,7 @@ ALTER TABLE `class_routine`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -591,6 +654,12 @@ ALTER TABLE `students`
 --
 ALTER TABLE `student_attendance`
   MODIFY `atten_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `stu_profile_approval`
+--
+ALTER TABLE `stu_profile_approval`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -614,7 +683,7 @@ ALTER TABLE `teacher_designations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Constraints for dumped tables

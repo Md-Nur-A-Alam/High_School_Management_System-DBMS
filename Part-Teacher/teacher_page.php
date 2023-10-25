@@ -31,6 +31,7 @@ $profilePicName = $row['profile_pic'];
 if ($profilePicName == null) {
     $profilePicName = 'default.jpg';
 }
+$_SESSION['subject']=$sub;
 $error = '';
 $pp = '';  // Initialize the profile picture HTML variable
 
@@ -321,6 +322,7 @@ $pp = '<div class="col-3">
 
     </div>
     <hr>
+    
 </body>
 
 </html>

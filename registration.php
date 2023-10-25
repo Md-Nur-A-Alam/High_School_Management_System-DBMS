@@ -2,14 +2,22 @@
 @include 'template/database.php';
 
 $error = null;
+function sanitizeName($input) {
+    // Remove any characters that are not letters (A-Z and a-z), '.', or '-'
+    $sanitized = preg_replace("/[^A-Za-z .-]+/", "", $input);
+    return $sanitized;
+}
 
 if (isset($_POST['submit'])) {
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $name = SanitizeName($_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = md5($_POST['password']);
     $cpass = md5($_POST['confirm_password']);
     $user_type = $_POST['user_type'];
-
+    if ($name !== $_POST['name']) {
+        $error = "ERROR: insert a valid name please";
+    }else {
+        
     $select = " SELECT * FROM users WHERE email= '$email'";
 
     $result = mysqli_query($conn, $select);
@@ -24,6 +32,7 @@ if (isset($_POST['submit'])) {
             mysqli_query($conn, $insert);
             header('location: login.php');
         }
+    }
     }
 }
 
