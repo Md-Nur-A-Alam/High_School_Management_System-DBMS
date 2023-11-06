@@ -49,12 +49,16 @@ if (isset($_POST['update'])) {
                qualification = '$qualification'
                WHERE teacher_id = $tid";
 
-    if (mysqli_query($conn, $update)) {
+    $result = mysqli_query($conn, $update);
+
+    if ($result) {
         header('location: teacher_page.php');
     } else {
-        $pp = mysqli_error($conn);
+        // Display the MySQL error for debugging
+        echo "MySQL Error: " . mysqli_error($conn);
     }
 }
+
 
 if (isset($_POST['changePass'])) {
     $oldPass = $_POST['Opass'];

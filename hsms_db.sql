@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2023 at 12:29 AM
+-- Generation Time: Nov 06, 2023 at 07:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -27,6 +27,53 @@ USE `hsms_db`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `arch_students`
+--
+
+CREATE TABLE `arch_students` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `DATE` date DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `arch_students`
+--
+
+INSERT INTO `arch_students` (`id`, `student_id`, `user_id`, `class_id`, `section_id`, `address`, `DATE`) VALUES
+(1, 41, 24, 10, 2, 'Jashore, Bangladesh', '2023-11-02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `arch_teachers`
+--
+
+CREATE TABLE `arch_teachers` (
+  `id` int(11) NOT NULL,
+  `teacher_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `designation_id` int(11) DEFAULT NULL,
+  `DATE` date DEFAULT curdate(),
+  `qualification` text DEFAULT NULL,
+  `salary` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `arch_teachers`
+--
+
+INSERT INTO `arch_teachers` (`id`, `teacher_id`, `user_id`, `designation_id`, `DATE`, `qualification`, `salary`) VALUES
+(1, 13, 30, 4, '2023-11-02', NULL, 65000),
+(2, 9, 32, 3, '2023-11-02', NULL, 55000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `assignment`
 --
 
@@ -45,6 +92,13 @@ CREATE TABLE `assignment` (
   `Religion` longblob DEFAULT NULL,
   `Agriculture` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `assignment`
+--
+
+INSERT INTO `assignment` (`id`, `stu_id`, `Bangla`, `English`, `Math`, `SocialScience`, `Science`, `Commerce`, `Arts`, `PhysicalEducation`, `ICT`, `Religion`, `Agriculture`) VALUES
+(1, 28, NULL, NULL, NULL, NULL, 0x61737369676e6d656e745f36353365396461386165383733352e38363830363537372e706466, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -297,8 +351,9 @@ INSERT INTO `students` (`student_id`, `user_id`, `class_id`, `section_id`, `date
 (38, 21, 8, 2, '2023-04-16', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
 (39, 22, 9, 2, '2022-10-29', NULL, '01643067065', NULL, NULL, 'Female', NULL, NULL),
 (40, 23, 10, 1, '2001-12-28', 'Satkhira, Khulna, Dhaka', '+8801643067065', 'Md. Shah Alam', '01725794566', 'Male', 'O+', 0x34302e6a7067),
-(41, 24, 10, 2, '2001-01-30', 'Jashore, Bangladesh', '01914387831', 'AMMU', '01643067065', 'Male', 'B-', 0x34312e6a7067),
-(42, 36, 10, 1, '2022-04-11', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL);
+(41, 24, 10, 1, '2001-01-30', 'Jashore, Bangladesh', '01914387831', 'AMMU', '01643067065', 'Male', 'B-', 0x34312e6a7067),
+(42, 36, 10, 1, '2022-03-28', NULL, '+8801643067065', NULL, NULL, 'Male', NULL, NULL),
+(44, 72, 6, 2, '2023-10-04', NULL, '01914387831', NULL, NULL, 'Male', NULL, NULL);
 
 --
 -- Triggers `students`
@@ -306,6 +361,15 @@ INSERT INTO `students` (`student_id`, `user_id`, `class_id`, `section_id`, `date
 DELIMITER $$
 CREATE TRIGGER `after_students_insert` AFTER INSERT ON `students` FOR EACH ROW BEGIN
     INSERT INTO student_attendance (stu_id) VALUES (NEW.student_id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_students_update` AFTER UPDATE ON `students` FOR EACH ROW BEGIN
+    IF OLD.class_id <> NEW.class_id OR OLD.section_id <> NEW.section_id OR OLD.address <> NEW.address THEN
+        INSERT INTO arch_students(student_id, user_id, class_id, section_id, address)
+        VALUES(NEW.student_id, NEW.user_id, OLD.class_id, OLD.section_id, OLD.address);
+    END IF;
 END
 $$
 DELIMITER ;
@@ -356,7 +420,8 @@ INSERT INTO `student_attendance` (`atten_id`, `stu_id`, `2023-10-23`, `2023-10-2
 (21, 39, 0, 0, 0),
 (22, 40, 1, 0, 0),
 (23, 41, 1, 0, 0),
-(24, 42, 0, 0, 0);
+(24, 42, 0, 0, 0),
+(26, 44, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -432,13 +497,26 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `user_id`, `subject_id`, `designation_id`, `date_of_birth`, `address`, `phone_number`, `gender`, `qualification`, `salary`, `profile_pic`) VALUES
-(9, 32, 9, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55000.00, NULL),
+(9, 32, 9, 2, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55000.00, NULL),
 (10, 43, 10, 3, '2023-10-04', NULL, '+8801643067065', 'Male', NULL, 55005.00, NULL),
 (11, 44, 1, 3, '2023-10-03', NULL, '01859265415', 'Male', NULL, 50000.00, NULL),
-(13, 30, 6, 4, '2023-10-01', NULL, '01914387831', 'Male', NULL, 65000.00, 0x31332e6a7067),
+(13, 30, 5, 3, '2023-10-01', NULL, '01914387832', 'Male', NULL, 65000.00, 0x31332e6a7067),
 (16, 55, 9, 3, '2023-10-03', NULL, '01859265415', 'Female', NULL, 55000.00, NULL),
 (17, 54, 2, 3, '2023-08-31', NULL, '01859265415', 'Male', NULL, 65000.00, NULL),
-(18, 53, 5, 3, '2023-10-02', 'Satkhira, Khulna, Dhaka', '01914387831', 'Male', 'B.Sc in CSE - CGPA 4.00', 72000.00, 0x31382e6a706567);
+(18, 53, 5, 1, '2023-10-02', 'Satkhira, Khulna, Dhaka', '01914387831', 'Male', 'B.Sc in CSE - CGPA 4.00', 950000.00, 0x31382e6a706567);
+
+--
+-- Triggers `teachers`
+--
+DELIMITER $$
+CREATE TRIGGER `after_teachers_update` AFTER UPDATE ON `teachers` FOR EACH ROW BEGIN
+    IF OLD.`designation_id` <> NEW.`designation_id` OR OLD.`qualification` <> NEW.`qualification` OR OLD.`salary` <> NEW.`salary` THEN
+        INSERT INTO arch_teachers(`teacher_id`, `user_id`, `designation_id`, `qualification`, `salary`)
+        VALUES(NEW.`teacher_id`, NEW.`user_id`, OLD.`designation_id`, OLD.`qualification`, OLD.`salary`);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -513,11 +591,24 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_type`, `registrati
 (44, 'Asif tanvir', 'asif@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-19 02:03:08', 1),
 (53, 'Hasan Mohammad Kafi', 'kafi@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:06', 1),
 (54, 'Sydur rahman', 'sydurrahman@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:30', 1),
-(55, 'Jerin Tasnim', 'jerintasnim@baust.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:55', 1);
+(55, 'Jerin Tasnim', 'jerintasnim@baust.com', '827ccb0eea8a706c4c34a16891f84e7b', 'teacher', '2023-10-20 19:56:55', 1),
+(72, 'Moin', 'moin@gmail.com', '202cb962ac59075b964b07152d234b70', 'student', '2023-10-28 01:08:28', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `arch_students`
+--
+ALTER TABLE `arch_students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `arch_teachers`
+--
+ALTER TABLE `arch_teachers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `assignment`
@@ -620,10 +711,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `arch_students`
+--
+ALTER TABLE `arch_students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `arch_teachers`
+--
+ALTER TABLE `arch_teachers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `assignment`
 --
 ALTER TABLE `assignment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `class_routine`
@@ -647,13 +750,13 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `student_attendance`
 --
 ALTER TABLE `student_attendance`
-  MODIFY `atten_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `atten_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `stu_profile_approval`
@@ -683,7 +786,7 @@ ALTER TABLE `teacher_designations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Constraints for dumped tables

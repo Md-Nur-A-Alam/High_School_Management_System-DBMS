@@ -3,6 +3,8 @@ session_start();
 include '../template/admin_header.html';
 include '../template/database.php';
 
+if (!empty($_SESSION['admin_name'])) {
+
 $select = "SELECT COUNT(*) AS sl
 FROM users
 WHERE user_type = 'student'";
@@ -90,4 +92,7 @@ $admin_sl = $row['sl'];
 
 <?php
 include ('../template/admin_footer.html');
+}else {
+    header('location: ../login.php');
+}
 ?>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!empty($_SESSION['admin_name'])) {
 include '../template/admin_header.html';
 @include '../template/database.php';
 $uid = null;
@@ -33,6 +34,8 @@ if (isset($_GET['detailUID'])) {
     $name = $row['name']; //
     $email = $row['email']; //
     $class = $row['class_name']; //
+    $class_id = $row['class_id']; //
+    $section_id = $row['section_id']; //
     $section = $row['section_name']; //
     $blood = $row['blood_group'];
     $guardian = $row['guardian_name'];
@@ -229,6 +232,7 @@ if (isset($_POST['back'])) {
                                     <div class="mb-3">
                                         <label>Class:</label>
                                         <select class="form-select" name="class">
+                                            <option value="'.$class_id.'" name="class">'.$class.'</option>
                                             <option value="6" name="class">Class 6</option>
                                             <option value="7" name="class">Class 7</option>
                                             <option value="8" name="class">Class 8</option>
@@ -239,6 +243,7 @@ if (isset($_POST['back'])) {
                                     <div class="mb-3">
                                         <label>Section:</label>
                                         <select class="form-select" name="section">
+                                            <option value="'.$section_id.'" name="section">'.$section.'</option>
                                             <option value="1" name="section">A</option>
                                             <option value="2" name="section">B</option>
                                             <option value="3" name="section">C</option>
@@ -247,6 +252,7 @@ if (isset($_POST['back'])) {
                                     <div class="mb-3">
                                         <label>Gender:</label>
                                         <select class="form-select" name="gender">
+                                            <option value="'.$gender.'" name="gender">'.$gender.'</option>
                                             <option value="Female" name="gender">Female</option>
                                             <option value="Male" name="gender">Male</option>
                                             <option value="Other" name="gender">Others</option>
@@ -254,11 +260,11 @@ if (isset($_POST['back'])) {
                                     </div>
                                     <div class="mb-3">
                                         <label>Date of Birth:</label>
-                                        <input type="date" class="form-control" placeholder="Enter Date of Birth..." name="dob">
+                                        <input type="date" class="form-control" value="'.$rdob.'" name="dob">
                                     </div>
                                     <div class="mb-3">
                                         <label>Phone Number:</label>
-                                        <input type="text" class="form-control" placeholder="Enter Phone No..." name="phone">
+                                        <input type="text" class="form-control" value="'.$phone.'" name="phone">
                                     </div>
 
                                     <button type="submit" class="btn btn-success" name="update">Save</button>
@@ -277,4 +283,7 @@ if (isset($_POST['back'])) {
 
 <?php
 include '../template/admin_footer.html';
+}else {
+    header('location: ../login.php');
+}
 ?>

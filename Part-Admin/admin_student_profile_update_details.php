@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!empty($_SESSION['admin_name'])) {
 include '../template/admin_header.html';
 @include '../template/database.php';
 $uid = null;
@@ -278,4 +279,7 @@ if (isset($_POST['back'])) {
 
 <?php
 include '../template/admin_footer.html';
+}else {
+    header('location: ../login.php');
+}
 ?>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!empty($_SESSION['admin_name'])) {
 include '../template/admin_header.html';
 @include '../template/database.php';
 $error = null;
@@ -20,12 +21,12 @@ if (isset($_POST['submit'])) {
     if ($name !== $_POST['name']) {
        $error = "Error : Invalid characters in the name field.";
     }else {
-        $select = " SELECT * FROM users WHERE email= '$email' && password ='$pass'";
+        $select = " SELECT * FROM users WHERE email= '$email'";
 
     $result = mysqli_query($conn, $select);
 
     if (mysqli_num_rows($result) > 0) {
-        echo 'Student already exist!';
+        $error = 'Email already exist!';
     } else {
         if ($pass != $cpass) {
             echo 'password does not match! <br>';
@@ -142,7 +143,7 @@ if (isset($_POST['submit'])) {
                     </tr>
                 </thead>';
                     $select = "SELECT
-                    ROW_NUMBER() OVER (ORDER BY u.id) AS sl,
+                    ROW_NUMBER() OVER (ORDER BY u.id DESC) AS sl,
                     u.id,
                     s.student_id,
                     u.name,
@@ -157,7 +158,8 @@ if (isset($_POST['submit'])) {
                 LEFT JOIN students s ON u.id = s.user_id
                 LEFT JOIN classes c ON c.class_id = s.class_id
                 LEFT JOIN sections sec ON sec.section_id = s.section_id
-                WHERE u.user_type = 'student' AND approval = '1'";
+                WHERE u.user_type = 'student' AND approval = '1'
+                ORDER BY u.id DESC";
                     $result = mysqli_query($conn, $select);
                     if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -204,7 +206,7 @@ if (isset($_POST['submit'])) {
                     </tr>
                 </thead>';
                     $select = "SELECT
-                    ROW_NUMBER() OVER (ORDER BY u.id) AS sl,
+                    ROW_NUMBER() OVER (ORDER BY u.id DESC) AS sl,
                     u.id,
                     u.name,
                     u.email,
@@ -214,7 +216,8 @@ if (isset($_POST['submit'])) {
                 LEFT JOIN students s ON u.id = s.user_id
                 LEFT JOIN classes c ON c.class_id = s.class_id
                 LEFT JOIN sections sec ON sec.section_id = s.section_id
-                WHERE u.user_type = 'student' AND approval = '0'";
+                WHERE u.user_type = 'student' AND approval = '0'
+                ORDER BY u.id DESC";
                     $result = mysqli_query($conn, $select);
                     if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -252,7 +255,7 @@ if (isset($_POST['submit'])) {
                     </tr>
                 </thead>';
                     $select = "SELECT
-                    ROW_NUMBER() OVER (ORDER BY u.id) AS sl,
+                    ROW_NUMBER() OVER ( ORDER BY u.id DESC) AS sl,
                     s.student_id,
                     u.name,
                     u.email,
@@ -262,7 +265,7 @@ if (isset($_POST['submit'])) {
                 LEFT JOIN students s ON u.id = s.user_id
                 LEFT JOIN classes c ON c.class_id = s.class_id
                 LEFT JOIN sections sec ON sec.section_id = s.section_id
-                INNER JOIN stu_profile_approval spa ON s.user_id = spa.user_id;";
+                INNER JOIN stu_profile_approval spa ON s.user_id = spa.user_id ORDER BY u.id DESC;";
                     $result = mysqli_query($conn, $select);
                     if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -315,7 +318,7 @@ if (isset($_POST['submit'])) {
                 a.guardian_phone AS guardian_phone,
                 a.email
             FROM (
-                SELECT ROW_NUMBER() OVER (ORDER BY u.id) AS sl, u.id, s.student_id, u.name, c.class_name, sec.section_name, s.gender, s.guardian_name, s.guardian_phone, u.email
+                SELECT ROW_NUMBER() OVER ( ORDER BY u.id DESC) AS sl, u.id, s.student_id, u.name, c.class_name, sec.section_name, s.gender, s.guardian_name, s.guardian_phone, u.email
                 FROM users u
                 LEFT JOIN students s ON u.id = s.user_id
                 LEFT JOIN classes c ON s.class_id = c.class_id
@@ -329,7 +332,7 @@ if (isset($_POST['submit'])) {
                         OR sec.section_name LIKE '%$search%'
                         OR s.gender LIKE '%$search%'
                     )
-            ) AS a;";
+            ) AS a ORDER BY a.id DESC;";
                     $result = mysqli_query($conn, $select);
                     if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -396,7 +399,7 @@ if (isset($_POST['submit'])) {
                             a.guardian_phone AS guardian_phone,
                             a.email
                         FROM (
-                            SELECT ROW_NUMBER() OVER (ORDER BY u.id) AS sl, u.id, s.student_id, u.name, c.class_name, sec.section_name, s.gender, s.guardian_name, s.guardian_phone, u.email
+                            SELECT ROW_NUMBER() OVER (ORDER BY u.id DESC) AS sl, u.id, s.student_id, u.name, c.class_name, sec.section_name, s.gender, s.guardian_name, s.guardian_phone, u.email
                             FROM users u
                             LEFT JOIN students s ON u.id = s.user_id
                             LEFT JOIN classes c ON s.class_id = c.class_id
@@ -405,7 +408,7 @@ if (isset($_POST['submit'])) {
                                 u.user_type = 'student'
                                 AND s.class_id = $class
                                 AND s.section_id = $section
-                        ) AS a;";
+                        ) AS a ORDER BY a.id DESC;";
                 
                         $result = mysqli_query($conn, $select);
                         
@@ -466,4 +469,7 @@ if (isset($_POST['submit'])) {
 
 <?php
 include '../template/admin_footer.html';
+}else {
+    header('location: ../login.php');
+}
 ?>

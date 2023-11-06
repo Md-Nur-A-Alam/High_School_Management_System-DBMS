@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: black;
+    color: aliceblue;
+    text-align: center;
+    padding: 10px;
+}
+
+.secondNav {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    background-color: orangered;
+    padding: 0 20px;
+
+}
+
+ul {
+
+    display: flex;
+    list-style-type: none;
+    gap: 20px;
+}
+
+h1 {
+    color: aliceblue;
+}
+
+.student-information {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.student-information img {
+    max-width: 150px;
+    border-radius: 100%;
+}

@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!empty($_SESSION['admin_name'])) {
 include '../template/admin_header.html';
 include '../template/database.php';
 
@@ -18,6 +19,10 @@ $salary = null;
 $designation_id = null;
 $subject_id = null;
 $profilePicName = null;
+$designation_id = null;
+$sub_id = null;
+$gender_id = null;
+
 $pp = '';  // Initialize the profile picture HTML variable
 
 if (isset($_GET['detailUID'])) {
@@ -44,6 +49,9 @@ if (isset($_GET['detailUID'])) {
     $salary = $row['salary'];
     $designation_id = $row['designation_id'];
     $subject_id = $row['subject_id'];
+    $designation_id = ($row['designation_id']);
+    $sub_id = ($row['subject_id']);
+
     $profilePicName = $row['profile_pic'];
     if ($profilePicName == null) {
         $profilePicName = 'default.jpg';
@@ -235,7 +243,7 @@ $pp = '<div class="col-3">
                 <div class="mb-3">
                     <label>Designation:</label>
                     <select class="form-select" name="designation">
-                        <option selected>Select Designation</option>
+                        <option value="'.$designation_id.'">'.$designation.'</option>
                         <option value="1" name="designation">Principal</option>
                         <option value="2" name="designation">Head Teacher</option>
                         <option value="3" name="designation">Instructor</option>
@@ -247,7 +255,7 @@ $pp = '<div class="col-3">
                 <div class="mb-3">
                     <label>Specialize subject:</label>
                     <select class="form-select" name="subject">
-                        <option selected>Select Subject</option>
+                        <option value="'.$sub_id.'">'.$sub.'</option>
                         <option value="1" name="subject">Bangla</option>
                         <option value="2" name="subject">English</option>
                         <option value="3" name="subject">Math</option>
@@ -265,6 +273,7 @@ $pp = '<div class="col-3">
                 <div class="mb-3">
                     <label>Gender:</label>
                     <select class="form-select" name="gender">
+                        <option value="'.$gender.'" name="gender">'.$gender.'</option>
                         <option value="Female" name="gender">Female</option>
                         <option value="Male" name="gender">Male</option>
                         <option value="Other" name="gender">Others</option>
@@ -272,15 +281,15 @@ $pp = '<div class="col-3">
                 </div>
                 <div class="mb-3">
                     <label>Date of Birth:</label>
-                    <input type="date" class="form-control" placeholder="Enter Date of Birth..." name="dob">
+                    <input type="date" class="form-control" value="'.$rdob.'" name="dob">
                 </div>
                 <div class="mb-3">
                     <label>Phone Number:</label>
-                    <input type="text" class="form-control" placeholder="Enter Phone No..." name="phone">
+                    <input type="text" class="form-control" value="'.$phoNo.'" name="phone">
                 </div>
                 <div class="mb-3">
                     <label>Salary:</label>
-                    <input type="text" class="form-control" placeholder="Enter salary in taka" name="salary">
+                    <input type="text" class="form-control" value="'.$salary.'" name="salary">
                 </div>
 
                 <button type="submit" class="btn btn-warning" name="update">Save Data</button>
@@ -297,4 +306,7 @@ $pp = '<div class="col-3">
 
 <?php
 include '../template/admin_footer.html';
+}else {
+    header('location: ../login.php');
+}
 ?>

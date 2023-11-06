@@ -4,7 +4,7 @@ include '../template/admin_header.html';
 include '../template/database.php';
 $cl = null;
 $sec = null;
-
+if (!empty($_SESSION['admin_name'])) {
 if (isset($_POST['update'])) {
     $cl = ($_POST['class_u']);
     $sec = ($_POST['section_u']);
@@ -1384,4 +1384,7 @@ if (isset($_POST['update'])) {
 
 <?php
 include '../template/admin_footer.html';
+}else {
+    header('location: ../login.php');
+}
 ?>
