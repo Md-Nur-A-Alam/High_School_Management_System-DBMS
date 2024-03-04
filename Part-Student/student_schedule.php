@@ -101,6 +101,30 @@ include 'header.html';
 
                     $result = mysqli_query($conn, $select);
                     if ($result) {
+                        $group = null;
+                        if ($section == '1') {
+                            $group = 'A';
+                        } elseif ($section == '2') {
+                            $group = 'B';
+                        } else {
+                            $group = 'C';
+                        }
+                        echo
+                        '
+                        <h3 class = "text-success">Routine for class <b class="text-primary">'.$class.'</b> section <b class="text-primary">'.$group.'</b> :</h3><hr>
+                        <thead>
+                            <tr>
+                                <th scope="col">Day</th>
+                                <th scope="col">1st</th>
+                                <th scope="col">2nd</th>
+                                <th scope="col">3rd</th>
+                                <th scope="col">4th</th>
+                                <th scope="col">5th</th>
+                                <th scope="col">6th</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        ';
                         while ($row = mysqli_fetch_assoc($result)) {
                             $d = $row['d'];
                             $s1 = $row['s_1'];

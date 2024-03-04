@@ -2,7 +2,25 @@
 session_start();
 @include 'template/database.php';
 $error = "";
+if (isset($_POST['ResetPass'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
 
+    $select = "SELECT * FROM users WHERE email = '$email'";
+
+    $result = mysqli_query($conn, $select);
+
+    if (mysqli_num_rows($result) > 0) {
+        $updateQuery = "UPDATE users SET reset_pass = 1 WHERE email = '$email'";
+
+        if (mysqli_query($conn, $updateQuery)) {
+            $error ="Reset Pass approval updated successfully.";
+        } else {
+            $error ="Error updating reset pass approval: " . mysqli_error($conn);
+        }
+    } else {
+        $error = "Incorrect email";
+    }
+}
 if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = md5($_POST['password']);
@@ -16,17 +34,21 @@ if (isset($_POST['submit'])) {
         if ($row['approval'] == '0') { // Fix the condition here
             $error = "Not approved yet";
         } elseif ($row['user_type'] == 'admin') {
-            $_SESSION['admin_id']=$row['id'];
+            $_SESSION['admin_id'] = $row['id'];
             $_SESSION['admin_name'] = $row['name'];
             header('Location: Part-Admin/admin_page.php');
         } elseif ($row['user_type'] == 'student') {
-            $_SESSION['student_id']=$row['id'];
+            $_SESSION['student_id'] = $row['id'];
             $_SESSION['student_name'] = $row['name'];
             header('Location: Part-Student/studentHomePage.php');
         } elseif ($row['user_type'] == 'teacher') {
-            $_SESSION['teacher_id']=$row['id'];
+            $_SESSION['teacher_id'] = $row['id'];
             $_SESSION['teacher_name'] = $row['name'];
             header('Location: Part-Teacher/teacher_page.php');
+        } elseif ($row['user_type'] == 'accounts') {
+            $_SESSION['accounts_user_id'] = $row['id'];
+            $_SESSION['accounts_name'] = $row['name'];
+            header('Location: Part-Accounts/accounts_page.php');
         }
     } else {
         $error = "Incorrect email or password!";
@@ -74,7 +96,8 @@ if (isset($_POST['submit'])) {
             <div class="form_container">
                 <form action="" method="post">
                     <h3>Login Now</h3>
-                    <hr><span><?php echo '<p style="border-radius: 5px; background-color:rgba(255, 0, 0, 0.699); margin: auto; text-align: center; font-size: 20px; text-decoration: uppercase;">'.$error.'</p>' ?></span><hr>
+                    <hr><span><?php echo '<p style="border-radius: 5px; background-color:rgba(255, 0, 0, 0.699); margin: auto; text-align: center; font-size: 20px; text-decoration: uppercase;">' . $error . '</p>' ?></span>
+                    <hr>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required placeholder="Enter your email">
 
@@ -82,7 +105,10 @@ if (isset($_POST['submit'])) {
                     <input type="password" id="password" name="password" required placeholder="Enter the password">
                     <input type="submit" name="submit" value="Log In" class="form-btn">
 
+                    <div style="margin-left: 30px;"><button class="btn btn-danger mx-2 btn-sm" style="background-color: #FF4A4A; padding: 5px; color: white; cursor: pointer;" name="ResetPass">Request to reset password</button></div>
                     <p class="go_login">Don't have an account? <a href="registration.php" class="header_box_btn">Sign Up</a></p>
+
+
                 </form>
             </div>
         </div>

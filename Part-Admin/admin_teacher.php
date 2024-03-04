@@ -245,7 +245,7 @@ if (!empty($_SESSION['admin_name'])) {
                         t.salary,
                         u.user_type
                     FROM users u
-                    LEFT JOIN teachers t ON u.id = t.user_id
+                    RIGHT JOIN teachers t ON u.id = t.user_id
                     LEFT JOIN teacher_designations td ON t.designation_id = td.designation_id
                     WHERE
                         t.teacher_id LIKE '%$search%'

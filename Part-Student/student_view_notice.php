@@ -4,8 +4,35 @@ require('../FPDF/fpdf.php');
 use LDAP\Result;
 
 session_start();
-include 'header.html';
-@include 'database.php';
+$sid = $_SESSION['stu_id'];
+include '../template/student_header.html';
+@include '../template/database.php';
+
+if (isset($_POST['submitPay'])) {
+    $select = "SELECT * FROM tuition_fees WHERE s_id = $sid";
+    $result = mysqli_query($conn, $select);
+    $row = mysqli_fetch_assoc($result);
+    $paid = $row['paid'] + $_POST['pay'];
+    $total = $row['total'];
+    $due = null;
+    $extra = null;
+    if ($paid < $total) {
+        $extra = 0;
+        $due = $total - $paid;
+    }
+    else {
+        $extra = $paid - $total;
+        $due = 0;
+    }
+
+    $update = "UPDATE tuition_fees
+                SET dues = $due,
+                    extra = $extra,
+                    paid = $paid
+                WHERE s_id = $sid";
+    mysqli_query($conn, $update);
+
+}
 
 ?>
 
@@ -24,7 +51,7 @@ include 'header.html';
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Student Notice</title>
     <style>
-        body{
+        body {
             /* background-color: antiquewhite; */
         }
     </style>
@@ -48,7 +75,7 @@ include 'header.html';
         if (isset($_GET['search'])) {
             $_GET['addNotice'] = false;
             $sender = $_GET['sender'];
-                $select = "SELECT
+            $select = "SELECT
                         ROW_NUMBER() OVER (ORDER BY n.noticeID) AS sl,
                         noticeID,
                         DATE(noticeDate) AS noticeDate,
@@ -62,7 +89,7 @@ include 'header.html';
             $result = mysqli_query($conn, $select);
             if ($result) {
                 echo '
-                    <h4 class="text-primary fw-bold">From '.$sender.'</h4>
+                    <h4 class="text-primary fw-bold">From ' . $sender . '</h4>
                     <table class="table my-1">
                     <thead class="table-success">
                         <tr>
@@ -88,15 +115,15 @@ include 'header.html';
                             <td class="fw-light">' . $date . '</td>
                             <td class="fw-bold text-primary">' . $sender . '</td>
                             <td class="fw-bold">' . $sub . '</td>'; ?>
-                            <td class="fw-light">
-                                <div id="notice_<?php echo $id; ?>"><?php echo $text; ?></div>
-                            </td>
-                            <td>
-                                <button class="btn btn-dark btn-sm" onclick="toggleNoticeText(<?php echo $id; ?>)">Toggle Text</button>
-                            </td>
+                    <td class="fw-light">
+                        <div id="notice_<?php echo $id; ?>"><?php echo $text; ?></div>
+                    </td>
+                    <td>
+                        <button class="btn btn-dark btn-sm" onclick="toggleNoticeText(<?php echo $id; ?>)">Toggle Text</button>
+                    </td>
 
-                        <?php echo 
-                            '<td>
+        <?php echo
+                    '<td>
                                 <button class="btn btn-success btn-sm" onclick="downloadNotice(' . $id . ')">Download Notice</button>
                             </td>
                             <td>
@@ -109,7 +136,11 @@ include 'header.html';
             }
         }
         ?>
+        <hr>
     </div>
+
+    
+
 </body>
 
 </html>
@@ -124,7 +155,7 @@ include 'header.html';
 
     function downloadNotice(id) {
         // Create an AJAX request to generate the PDF file
-        var xhr = new XMLHttpRequest();//http request from server
+        var xhr = new XMLHttpRequest(); //http request from server
         xhr.open('GET', 'student_generate_notice.php?id=' + id, true);
         xhr.responseType = 'arraybuffer';
         //it should expect binary data as the response, which is common for file downloads.
@@ -149,7 +180,7 @@ include 'header.html';
 
     function toggleNoticeText(id) {
         var noticeDiv = document.getElementById('notice_' + id);
-        
+
         if (noticeDiv) {
             if (noticeDiv.classList.contains('truncated')) {
                 noticeDiv.classList.remove('truncated');
